@@ -1,0 +1,23 @@
+walk-on-a-slide-side
+Copyright 2026 Sinaida Krivchenko (https://sinaida.eu)
+
+Licensed under the Apache License, Version 2.0. See LICENSE.
+
+SCOPE
+  The Apache License covers the SOURCE CODE in this repository:
+  SKILL.md, the reference files, and scripts/grid.py.
+
+  It does NOT cover the artwork: the banner imagery in assets/ and any
+  generative or visual output. That is licensed separately in
+  LICENSE-ARTWORK.
+
+METHOD
+  The design system this skill constructs follows the method set out in
+  Josef Müller-Brockmann, "Grid Systems in Graphic Design / Raster
+  Systeme für die visuelle Gestaltung" (Niggli). That book is not
+  included or reproduced here; the skill references its method and cites
+  it. Obtain the book to read the source.
+
+THIRD-PARTY CONTENT
+  Some material referenced by this skill was made by other people and
+  stays under its own license, stated where it is used.
