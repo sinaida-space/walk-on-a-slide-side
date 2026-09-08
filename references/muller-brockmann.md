@@ -194,9 +194,9 @@ as it goes. There are no mid-sizes.
 | Supporting text, list, source, caption, footer, page number | 1 | light / regular | below the headline, or at the foot |
 
 The heading element is a full-height accent bar at the left edge of every
-slide, one weight everywhere. A category label is set as an oversized
-ghost, not a small caps tag, and it always reads lighter than the
-headline. The supporting text is never set beside the headline and never
+slide, one weight everywhere. A category label is set as an oversized ghost
+that always reads lighter than the headline. A small caps tag is never
+used. The supporting text is never set beside the headline and never
 in a second size. Leave ample white space between them.
 
 ## Colour
