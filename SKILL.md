@@ -30,6 +30,13 @@ Each stage produces a file the next stage reads. A stage can be re-run
 without redoing the ones before it. Do not skip forward. A deck designed
 before its spine exists is a deck you rebuild.
 
+## Language
+
+Talk to the user in the language they are writing in. The skill files, the
+frameworks, and any deck text that ships in this repository stay in
+English. A deck built for the user can be in any language they ask for;
+the typography skill covers Russian and English.
+
 ## On launch
 
 Say, in one or two sentences, that this is the full four-stage process and
@@ -97,13 +104,14 @@ Read `references/stage-3-design-system.md` and `references/muller-brockmann.md`.
 
 First question, always: **is there a design system to work inside?**
 
-- **The user has one.** Locally, that is the `sinaida-grid-style` skill
-  and its `reference/grid-law.md`. Ingest its type faces, colours and
-  spacing unit. Do not invent a second red or a second face.
+- **The user supplies one.** A tokens file, a brand spec, or an existing
+  deck to match. Ingest its type faces, its colours and its spacing unit.
+  Do not add a second accent or a second body face.
 - **There is none, or the deck is for a public or client audience.**
   Construct one from `references/muller-brockmann.md`: type area from the
   canvas and margin proportions, columns from type size, baseline from
-  leading, fields from content density.
+  leading, fields from content density. The default accent is
+  transformative teal `#2F6364`, used only to mark the grid.
 
 Either way the grid, the type scale and the spacing are derived by
 Müller-Brockmann’s maths. The eye does not choose them. That book is the
