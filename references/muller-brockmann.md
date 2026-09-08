@@ -190,13 +190,14 @@ as it goes. There are no mid-sizes.
 | Deck title / section divider | 5 | bold | centred vertically |
 | Single-claim phrase | 3 | bold | centred vertically |
 | Content headline | 3.3 | semibold | top-left, in the title band |
-| Oversized ghost label | 2.5 | semibold, ~16 % opacity | above its block, one size everywhere |
+| Oversized ghost number | 5.5, one fixed size everywhere | semibold, ~14 % opacity | straddling its box top edge, no rule through it |
 | Supporting text, list, source, caption, footer, page number | 1 | light / regular | below the headline, or at the foot |
 
 The heading element is a full-height accent bar at the left edge of every
-slide, one weight everywhere. A category label is set as an oversized ghost
-that always reads lighter than the headline. A small caps tag is never
-used. The supporting text is never set beside the headline and never
+slide, one weight everywhere. A number label is set as an oversized ghost that echoes the section
+numeral: one fixed size everywhere, straddling the top edge of its box,
+no rule running through it, always lighter than the headline. A small
+caps tag is never used. The supporting text is never set beside the headline and never
 in a second size. Leave ample white space between them.
 
 ## Colour

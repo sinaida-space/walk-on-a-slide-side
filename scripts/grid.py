@@ -223,16 +223,17 @@ h1 {{ font-size: {s['title']}px; line-height: {round(s['title'] * 1.02)}px; }}
 h2 {{ font-size: {s['headline']}px; line-height: {s['headline_leading']}px;
   max-width: {grid_w}px; font-weight: 600; }}
 
-/* the oversized ghost label: one size across the whole deck, semi-
-   transparent, always lighter in weight than the headline. It replaces
-   every small caps label. */
-.ghost {{
+/* the oversized ghost number: it echoes the section numeral. One fixed
+   size across the whole deck (never scaled to fit a word), semi-
+   transparent, straddling the box's top edge via a negative top margin.
+   No rule ever runs through it. It replaces every small caps label. */
+.ghost, ul.index li::before {{
   font-family: {t['faces'].get('display', 'inherit')};
-  font-size: {round(s['body'] * 2.5)}px; font-weight: 600;
-  color: {c['ink']}; opacity: .16; display: block; line-height: 1;
-  margin-bottom: 6px;
+  font-size: {round(s['body'] * 5.5)}px; font-weight: 600;
+  color: {c['ink']}; opacity: .14; line-height: .8;
+  display: block; margin: -0.44em 0 0.10em 0;
 }}
-.farbflache .ghost {{ color: {c['ground']}; opacity: .4; }}
+.farbflache .ghost {{ color: {c['ground']}; opacity: .45; }}
 
 /* title / statement / close: display phrase centred vertically
    ("musica viva" principle) */
@@ -246,25 +247,21 @@ p, ul, ol, .source, .caption, footer {{
   color: {c['ink']}; margin: 0;
 }}
 .source, .caption, footer {{ color: {c['muted']}; }}
+.module .label {{ font-weight: 600; }}
 
-/* index: a horizontal row of outlined boxes, one per item, sitting low
-   with white space above; each box carries a ghost number and the item */
-ul.index {{ list-style: none; margin: auto 0 0 0; padding: 0;
-  counter-reset: idx; display: flex; gap: 16px; align-items: flex-start; }}
-ul.index li {{ flex: 1; border: 1px solid {c['accent']}; padding: 16px; }}
+/* index and modules: a horizontal row of equal outlined boxes, sitting
+   low with white space above; each box carries the ghost number and its
+   text. In modules one box is the solid accent Farbfläche. */
+ul.index, .modules {{ list-style: none; margin: auto 0 0 0; padding: 0;
+  counter-reset: idx; display: flex; gap: 16px; align-items: stretch; }}
+ul.index li, .module, .farbflache {{ flex: 1; padding: 16px;
+  border: 1px solid {c['accent']}; }}
 ul.index li::before {{ counter-increment: idx;
-  content: counter(idx, decimal-leading-zero);
-  font-family: {t['faces'].get('display', 'inherit')};
-  font-size: {round(s['body'] * 2.5)}px; font-weight: 600;
-  color: {c['ink']}; opacity: .16; display: block; line-height: 1;
-  margin-bottom: 6px; }}
+  content: counter(idx, decimal-leading-zero); }}
 
 /* solid accent block (Farbfläche): the key point, knocked out */
 .farbflache {{ background: {c['accent']}; color: {c['ground']};
-  padding: 18px; }}
-
-/* open module block: an accent hairline on top, a ghost label, small value */
-.module {{ border-top: 1px solid {c['accent']}; padding-top: 8px; }}
+  border-color: {c['accent']}; }}
 
 /* section divider: knockout on the ink ground; the section numeral is
    oversized and bleeds off the lower-right edge */

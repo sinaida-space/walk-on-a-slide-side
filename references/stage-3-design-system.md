@@ -49,12 +49,14 @@ shared publicly. Choose:
   slide, one weight everywhere (~8 px). Never an underline, never an
   eyebrow.
 - **type contrast.** The display type is huge (3× body or more). Every
-  other piece of text is one small size (~15 px). A category label is set
-  as an **oversized ghost** (~2.5× body, one size across the whole deck,
-  semi-transparent) so it reads as a layer under the content, never as a
-  small caps tag. No mid-sizes, no label chips. “The 9-point face is
-  immediately distinguishable from the 6-point face”. Make that gap
-  unmistakable, and keep the headline heavier than the ghost.
+  other piece of text is one small size (~15 px). A number label is set
+  as an **oversized ghost** that echoes the section numeral: one fixed
+  size across the whole deck (never scaled to fit a word), semi-
+  transparent, straddling the box's top edge, with no rule ever running
+  through it. It reads as a layer under the content, never as a small caps
+  tag. No mid-sizes, no label chips. “The 9-point face is immediately
+  distinguishable from the 6-point face”. Make that gap unmistakable, and
+  keep the headline heavier than the ghost.
 - **placement.** A section title, a single claim, and the title and close
   are set large and **centred vertically** in the frame (the “musica
   viva” principle). A content headline sits top-left in the title band and
@@ -99,8 +101,7 @@ layout a slide uses so the deck is not one shape repeated. See
 | `title` / `close` | ink ground, huge phrase centred vertically, the left bar, a tiny meta row at the foot | first and last slides |
 | `section` | ink ground, huge title centred vertically, the left bar, an oversized accent numeral bleeding off the lower-right; nothing else | dividers |
 | `statement` | the single accent phrase, set large and centred vertically, the left bar; a tiny source note under it; ample white above and below | a single claim |
-| `index` | huge headline in the band; below, a horizontal row of outlined boxes, one per item, each with an oversized ghost number and one small size of text; the row sits low with white space above | supporting points, a checklist, a set of facts |
-| `modules` | huge headline in the band; below, a two-by-two (or one-by-n) block grid; one block is a solid accent Farbfläche carrying the key point, knocked out; the others are open, an accent hairline on top, an oversized ghost label and a small value | scope, spec, before/after, comparison |
+| `index` / `modules` | huge headline in the band; below, a horizontal row of equal outlined boxes, one per item, each with an oversized ghost number straddling its top edge, a short bold label and a small value inside; the row sits low with white space above. In `modules` one box is the solid accent Farbfläche carrying the key point, knocked out | supporting points, a checklist; `modules` for scope, spec, before/after, comparison |
 
 `role` from the spine maps to a layout: `title`→`title`, `section`→`section`,
 `claim`/`context`→`statement`, `evidence`/`objection`→`index`,

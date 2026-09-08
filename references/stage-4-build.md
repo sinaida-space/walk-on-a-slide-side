@@ -90,8 +90,26 @@ After rendering, open the output and go slide by slide:
 4. **Data slides carry their takeaway** in the chart title and show one
    comparison.
 5. **Last slide is the ask**, with an owner and a specific action.
+   “Thank you” is not a call to action.
 6. **Grid holds.** Spot-check three slides with the theme’s grid-overlay
    class; baselines land on grid lines.
+
+### Consistency audit
+
+Then run one pass across the whole deck, not slide by slide:
+
+- **Type.** One family, one headline size, one small size, one ghost
+  size. No stray mid-size.
+- **Colour.** One ink, one ground, one accent. The accent only ever marks
+  the grid.
+- **Spacing and alignment.** Every element on the grid; the left bar,
+  margins, footer and page number in the same place on every slide.
+- **Numbering.** Section numbers and box numbers run in sequence, same
+  format.
+- **Density and contrast.** No slide is crowded; text holds contrast
+  against its ground at the size it is set. A slide that reads as anxious
+  goes back to Stage 2 for cutting.
+- **Audience.** The emphasis still matches the pattern chosen in Stage 2.
 
 Then screenshot the rendered deck (a contact sheet of all slides is
 ideal) and send it to the user with `SendUserFile`. State the format(s)

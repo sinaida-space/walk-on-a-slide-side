@@ -54,8 +54,9 @@ do. If they can only describe a topic or a feeling, stop and hand off:
 as the local `for-tee-too` skill). Do not try to do its job inside this
 skill. Come back when there is a position to build on.
 
-If the content is ready, ask the two framing questions (audience, and the
-one action the deck should produce) with `AskUserQuestion`, then enter
+If the content is ready, ask the framing questions with `AskUserQuestion`:
+who is in the room, the one action the deck should produce, and how long
+the slot is. These set the constraints for every stage. Then enter
 Stage 1.
 
 ## Stage 1. Content
