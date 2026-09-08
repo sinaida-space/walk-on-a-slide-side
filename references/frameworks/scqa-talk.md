@@ -1,22 +1,23 @@
-# Framework — SCQA narrative
+# Framework: SCQA narrative
 
-For a talk, lecture, conference session or portfolio pitch — anything
-that is a story with a point rather than a business case. SCQA is
-Barbara Minto's: **Situation · Complication · Question · Answer**.
+For a talk, lecture, conference session or portfolio pitch: a story with
+a point rather than a business case. SCQA is Barbara Minto’s:
+**Situation · Complication · Question · Answer**.
 
 ## The four moves
 
 1. **Situation.** The stable, agreed starting picture. Nothing
-   contentious — the audience should nod. Keep it short; it is the
-   run-up, not the jump.
+   contentious; the audience should nod. Keep it short. It is the run-up
+   before the jump.
 2. **Complication.** What changed, broke, or came into tension with the
    situation. This is where attention turns on. One clear disturbance,
-   not a list of grievances.
-3. **Question.** The question the complication forces. Usually implicit —
-   state it once, plainly, so the rest of the talk visibly answers it.
+   never a list of grievances.
+3. **Question.** The question the complication forces. It is usually
+   implicit, so state it once, plainly, and let the rest of the talk
+   visibly answer it.
 4. **Answer.** Your thesis, then the support for it. The bulk of the
-   talk. Structure the support as its own small argument
-   (claim → evidence → implication), not as a tour.
+   talk. Build the support as its own small argument (claim, evidence,
+   implication) rather than a tour.
 
 ## Deck sections
 
@@ -26,9 +27,9 @@ Barbara Minto's: **Situation · Complication · Question · Answer**.
 | Complication | the disturbance as an assertion headline; a slide or two showing it |
 | Question | one slide, the question stated plainly |
 | Answer | thesis slide; then 3–5 supporting points, one idea each, each with evidence; a slide answering the strongest counter |
-| Close | what you want the audience to do, think, or try next — the CTA slide |
+| Close | what you want the audience to do, think, or try next. The CTA slide |
 
-Section dividers between Situation / Complication / Answer are full-bleed
+Section dividers between Situation, Complication and Answer are full-bleed
 title slides.
 
 ## `content.md` shape
@@ -38,12 +39,12 @@ title slides.
 <agreed starting picture, 2–3 sentences>
 
 ## Complication
-<the one thing that changed / broke> [source if factual]
+<the one thing that changed or broke> [source if factual]
 
 ## Question
 <the question it forces, one sentence>
 
-## Answer — thesis
+## Answer, thesis
 <your position, one sentence>
 
 ## Support 1
@@ -61,12 +62,12 @@ What I want the room to do next: ...
 
 ## Notes for talks
 
-- Rehearse the first slide after the title and the last slide before the
-  close out loud. Those two carry the room.
+- Rehearse, out loud, the first slide after the title and the last slide
+  before the close. Those two carry the room.
 - One idea per minute of stage time, minus dividers. A 20-minute slot is
-  ~15 content slides.
+  about 15 content slides.
 - Favour one strong visual per slide over text. The audience is listening
-  to you; the slide is a caption to what you are saying.
-- If the talk is a portfolio pitch, the "Answer" support points are the
-  works themselves — one slide per work, headline stating what it
-  demonstrates, image full-bleed or spanning whole fields.
+  to you, and the slide is a caption to what you are saying.
+- In a portfolio pitch, the “Answer” support points are the works
+  themselves: one slide per work, headline stating what it demonstrates,
+  image full-bleed or spanning whole fields.
