@@ -205,17 +205,34 @@ section {{
 }}
 * {{ border-radius: 0 !important; }}
 
+/* The heading element: a full-height accent bar at the left edge of every
+   slide, one weight everywhere. Never an underline, never an eyebrow. */
+section::before {{
+  content: ""; position: absolute; left: 0; top: 0; bottom: 0;
+  width: 8px; background: {c['accent']};
+}}
+section {{ position: relative; }}
+
 /* One rule of contrast: the display type is huge, everything else is one
-   small size. No mid-sizes, no label chips, no eyebrows. The heading
-   element is a vertical accent rule beside the type, never an underline. */
+   small size. No mid-sizes, no label chips. */
 h1, h2 {{
   font-family: {t['faces'].get('display', 'inherit')};
   font-weight: 700; margin: 0; letter-spacing: -0.01em;
-  border-left: 4px solid {c['accent']}; padding-left: 22px;
 }}
 h1 {{ font-size: {s['title']}px; line-height: {round(s['title'] * 1.02)}px; }}
 h2 {{ font-size: {s['headline']}px; line-height: {s['headline_leading']}px;
   max-width: {grid_w}px; font-weight: 600; }}
+
+/* the oversized ghost label: one size across the whole deck, semi-
+   transparent, always lighter in weight than the headline. It replaces
+   every small caps label. */
+.ghost {{
+  font-family: {t['faces'].get('display', 'inherit')};
+  font-size: {round(s['body'] * 2.5)}px; font-weight: 600;
+  color: {c['ink']}; opacity: .16; display: block; line-height: 1;
+  margin-bottom: 6px;
+}}
+.farbflache .ghost {{ color: {c['ground']}; opacity: .4; }}
 
 /* title / statement / close: display phrase centred vertically
    ("musica viva" principle) */
@@ -231,25 +248,23 @@ p, ul, ol, .source, .caption, footer {{
 .source, .caption, footer {{ color: {c['muted']}; }}
 
 /* index: a horizontal row of outlined boxes, one per item, sitting low
-   with white space above; a small leading number, one small text size */
+   with white space above; each box carries a ghost number and the item */
 ul.index {{ list-style: none; margin: auto 0 0 0; padding: 0;
   counter-reset: idx; display: flex; gap: 16px; align-items: flex-start; }}
 ul.index li {{ flex: 1; border: 1px solid {c['accent']}; padding: 16px; }}
 ul.index li::before {{ counter-increment: idx;
   content: counter(idx, decimal-leading-zero);
-  display: block; font-size: {s['caption']}px; color: {c['muted']};
-  margin-bottom: 10px; }}
+  font-family: {t['faces'].get('display', 'inherit')};
+  font-size: {round(s['body'] * 2.5)}px; font-weight: 600;
+  color: {c['ink']}; opacity: .16; display: block; line-height: 1;
+  margin-bottom: 6px; }}
 
 /* solid accent block (Farbfläche): the key point, knocked out */
 .farbflache {{ background: {c['accent']}; color: {c['ground']};
   padding: 18px; }}
-.farbflache .label {{ font-size: {s['caption']}px; text-transform: uppercase;
-  letter-spacing: .08em; }}
 
-/* open module block: an accent hairline on top, tiny label, small value */
+/* open module block: an accent hairline on top, a ghost label, small value */
 .module {{ border-top: 1px solid {c['accent']}; padding-top: 8px; }}
-.module .label {{ font-size: {s['caption']}px; color: {c['muted']};
-  text-transform: uppercase; letter-spacing: .08em; }}
 
 /* section divider: knockout on the ink ground; the section numeral is
    oversized and bleeds off the lower-right edge */
