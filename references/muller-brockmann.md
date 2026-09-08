@@ -195,8 +195,8 @@ as it goes. There are no mid-sizes.
 
 The heading element is a full-height accent bar at the left edge of every
 slide, one weight everywhere. A number label is set as an oversized ghost that echoes the section
-numeral: one fixed size everywhere, straddling the top edge of its box,
-no rule running through it, always lighter than the headline. A small
+numeral: one fixed size everywhere, at the top-right of its box, straddling its top edge, no rule
+running through it, always lighter than the headline. A small
 caps tag is never used. The supporting text is never set beside the headline and never
 in a second size. Leave ample white space between them.
 
