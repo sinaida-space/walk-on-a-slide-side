@@ -41,18 +41,20 @@ shared publicly. Choose:
   screens.
 - **faces.** One grotesk family for everything. Name a real fallback
   stack. The family must cover every script the deck uses.
-- **accent.** Pure red `#FF0000` by default. It marks the grid: the short
-  rule by the headline, field rules, registration crosses, the section
-  numerals, the progress rail. It is never a body-text colour, and there
-  is only one accent.
-- **type contrast.** The headline is huge (3× body or more); every other
-  piece of text is one small size (~15 px). No mid-sizes, no label chips,
-  no eyebrow. “The 9-point face is immediately distinguishable from the
+- **accent.** Pure red `#FF0000` by default. It marks the grid: the
+  vertical heading rule, field hairlines, the section numeral, the
+  progress squares, the solid Farbfläche block. It is never a body-text
+  colour, and there is only one accent.
+- **heading element.** A vertical accent rule beside the display type, the
+  height of the phrase. Never an underline, never an eyebrow.
+- **type contrast.** The display type is huge (3× body or more); every
+  other piece of text is one small size (~15 px). No mid-sizes, no label
+  chips. “The 9-point face is immediately distinguishable from the
   6-point face”. Make that gap unmistakable.
-- **placement.** The headline sits top-left in the title band. The
-  supporting text goes low (anchored to the bottom margin) or in the
-  right column, never beside the headline. Leave ample white space
-  between the two.
+- **placement.** A section title, a single claim, and the title and close
+  are set large and **centred vertically** in the frame (the “musica
+  viva” principle). A content headline sits top-left in the title band and
+  its supporting text goes below it, with ample white space between.
 - **field count.** From content density, per the table in
   `muller-brockmann.md`: 8 for most decks, 16 or 20 for data-dense, 32
   for reference.
@@ -83,31 +85,29 @@ it computes, as the book does:
 
 ## The layouts
 
-Every layout puts the huge headline top-left in the title band and the
-small supporting text low or right. The structure is drawn with accent
-hairlines and registration crosses. Vary which layout a slide uses so the
-deck is not one shape repeated. See `muller-brockmann.md` for the field
-schemes these come from.
+The deck reads like an art-museum booklet: big display type against one
+small text size, generous white, strict alignment, one accent. Vary which
+layout a slide uses so the deck is not one shape repeated. See
+`muller-brockmann.md` for the field schemes these come from.
 
 | Layout | Structure | For |
 |---|---|---|
-| `title` / `close` | ink ground, huge headline lower-left, a short accent rule, a tiny meta row | first and last slides |
-| `section` | ink ground, huge title top-left, an oversized accent numeral bleeding off the lower-right, a five-segment progress rail | dividers |
-| `statement` | one big sentence in the band, a short accent rule, then open space; a tiny source note on the bottom margin; a sparse row of registration crosses | a single claim |
-| `right-column` | huge headline in the band; a short list in the right column, one small size, each item on an accent tick, an accent rule down the column’s left edge | supporting points behind a claim |
-| `bottom-block` | huge headline in the band; three or four short lines anchored to the bottom margin under a short accent rule; open space between | before/after, resources, a short set of facts |
-| `field-grid` | huge headline in the band; a ruled two-by-two (or one-by-n) grid below, accent hairlines, registration crosses at the corners, a tiny label and a small value per cell | scope, spec, comparison |
+| `title` / `close` | ink ground, huge phrase centred vertically with the accent rule beside it, a tiny meta row at the foot | first and last slides |
+| `section` | ink ground, huge title centred vertically with the accent rule; an oversized accent numeral bleeding off the lower-right; a row of accent squares and “SECTION n OF N” at the foot | dividers |
+| `statement` | the single accent phrase, set large and centred vertically with the accent rule beside it; a tiny source note under it; ample white above and below | a single claim |
+| `index` | huge headline in the band with the accent rule; below, full-width rows separated by accent hairlines, each with a small leading number and one small size of text | supporting points, a checklist, a set of facts |
+| `modules` | huge headline in the band; below, a two-by-two (or one-by-n) block grid; one block is a solid accent Farbfläche carrying the key point, knocked out; the others are open, an accent hairline on top, a tiny label and a small value | scope, spec, before/after, comparison |
 
 `role` from the spine maps to a layout: `title`→`title`, `section`→`section`,
-`claim`/`context`→`statement`, `evidence`→`right-column` or `bottom-block`,
-`data`→`field-grid`, `objection`→`bottom-block`, `cta`→`statement` or
-`close`.
+`claim`/`context`→`statement`, `evidence`/`objection`→`index`,
+`data`→`modules`, `cta`→`statement` or `close`.
 
 `grid.py` writes the regions into `tokens.json` and a class per layout
-into `theme.css` (`section.section`, `section.wide-narrow`,
-`section.headline-bottom`, and so on), plus a grid overlay you can toggle
-with a class while checking alignment. No rounded corners, no circles; the
-accent shows only as rules, crosses and the section numerals.
+into `theme.css` (`section.section`, `section.statement`, `ul.index`,
+`.farbflache`, `.module`), plus a grid overlay you can toggle with a class
+while checking alignment. No rounded corners, no circles, no registration
+crosses; the accent shows only as the heading rule, field hairlines, the
+Farbfläche block and the section numeral.
 
 ## Check the system before Stage 4
 

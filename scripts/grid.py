@@ -11,8 +11,9 @@ scale, the colour roles and a set of named layout regions, then writes:
     <out>/tokens.json   the numbers and the layout regions
     <out>/theme.css     a Marp theme bound to those numbers
 
-The accent has one job: it marks the grid (rules, registration crosses,
-the section numerals, the progress rail). No rounded corners are emitted.
+The accent has one job: it marks the grid (the vertical heading rule,
+field hairlines, the section numeral, the progress squares, the solid
+Farbfläche block). No rounded corners are emitted.
 See references/muller-brockmann.md for why each step is what it is.
 
 Usage:
@@ -42,7 +43,7 @@ FIELD_ARRANGEMENTS = {
 
 # Margin zone as fractions of the canvas SHORT side, ordered
 # left < top < right < bottom so the type area sits slightly high and left.
-DEFAULT_MARGINS = {"left": 0.055, "top": 0.075, "right": 0.075, "bottom": 0.110}
+DEFAULT_MARGINS = {"left": 0.075, "top": 0.110, "right": 0.085, "bottom": 0.100}
 
 # Extreme contrast: the headline dominates, everything else is one small
 # size. No mid-sizes. "The 9-point face is immediately distinguishable
@@ -164,7 +165,7 @@ def build(canvas, body, leading, advance, fields, target_chars, faces, colours):
                    "rows_in_baselines": field_rows_units},
         "regions": regions,
         "layouts": ["title", "close", "section", "statement",
-                    "right-column", "bottom-block", "field-grid"],
+                    "index", "modules"],
         "type_scale": scale,
         "advance": advance,
         "target_chars": target_chars,
@@ -204,71 +205,68 @@ section {{
 }}
 * {{ border-radius: 0 !important; }}
 
-/* One rule of contrast: the headline is huge, everything else is one
-   small size. No mid-sizes. No label chips, no eyebrows. */
-h1 {{
+/* One rule of contrast: the display type is huge, everything else is one
+   small size. No mid-sizes, no label chips, no eyebrows. The heading
+   element is a vertical accent rule beside the type, never an underline. */
+h1, h2 {{
   font-family: {t['faces'].get('display', 'inherit')};
-  font-size: {s['title']}px; line-height: {round(s['title'] * 1.02)}px;
   font-weight: 700; margin: 0; letter-spacing: -0.01em;
+  border-left: 4px solid {c['accent']}; padding-left: 22px;
 }}
-h2 {{
-  font-family: {t['faces'].get('display', 'inherit')};
-  font-size: {s['headline']}px; line-height: {s['headline_leading']}px;
-  font-weight: 600; margin: 0; max-width: {grid_w}px;
-  letter-spacing: -0.01em;
+h1 {{ font-size: {s['title']}px; line-height: {round(s['title'] * 1.02)}px; }}
+h2 {{ font-size: {s['headline']}px; line-height: {s['headline_leading']}px;
+  max-width: {grid_w}px; font-weight: 600; }}
+
+/* title / statement / close: display phrase centred vertically
+   ("musica viva" principle) */
+section.title, section.statement, section.close {{
+  display: flex; flex-direction: column; justify-content: center;
 }}
 
-/* supporting text: small, one size, placed low or in the right column.
-   Ample white space between it and the headline. */
+/* supporting text: small, one size, placed low or after ample white */
 p, ul, ol, .source, .caption, footer {{
   font-size: {s['caption']}px; line-height: {base}px;
   color: {c['ink']}; margin: 0;
 }}
 .source, .caption, footer {{ color: {c['muted']}; }}
-li {{ list-style: none; margin: 0 0 {round(base / 2)}px 0; }}
-li::before {{ content: ""; display: inline-block; width: 16px;
-  border-top: 2px solid {c['accent']}; vertical-align: middle;
-  margin-right: 12px; }}
 
-/* the headline band carries a single short accent rule, not a full border */
-h2 + .rule, .headline-rule {{
-  display: block; width: 64px; border-top: 2px solid {c['accent']};
-  margin-top: {round(base / 2)}px;
-}}
+/* index rows: one small size, full-width accent hairline above each,
+   a small number in the left margin */
+ul.index {{ list-style: none; margin: {base}px 0 0 0; padding: 0; }}
+ul.index li {{ border-top: 1px solid {c['accent']};
+  padding: {round(base / 2)}px 0 {base}px 46px; position: relative; }}
+ul.index li::before {{ counter-increment: idx;
+  content: counter(idx, decimal-leading-zero);
+  position: absolute; left: 0; font-size: {s['caption']}px;
+  color: {c['muted']}; }}
+ol.index, ul.index {{ counter-reset: idx; }}
 
-/* section divider: knockout on the ink ground, oversized accent numeral */
+/* solid accent block (Farbfläche): the key point, knocked out */
+.farbflache {{ background: {c['accent']}; color: {c['ground']};
+  padding: 18px; }}
+.farbflache .label {{ font-size: {s['caption']}px; text-transform: uppercase;
+  letter-spacing: .08em; }}
+
+/* open module block: an accent hairline on top, tiny label, small value */
+.module {{ border-top: 1px solid {c['accent']}; padding-top: 8px; }}
+.module .label {{ font-size: {s['caption']}px; color: {c['muted']};
+  text-transform: uppercase; letter-spacing: .08em; }}
+
+/* section divider: knockout on the ink ground; the section numeral is
+   oversized and bleeds off the lower-right edge */
 section.title, section.section, section.close {{
   background: {c['ink']}; color: {c['ground']};
 }}
 section.section .numeral {{
-  font-size: {round(s['title'] * 5)}px; line-height: 1;
-  color: {c['accent']}; position: absolute; right: 0; bottom: -8%;
+  font-size: {round(s['title'] * 6)}px; line-height: 1;
+  color: {c['accent']}; position: absolute; right: -2%; bottom: -14%;
   font-weight: 300;
 }}
-
-/* right-column supporting text (18-field wide/narrow scheme) */
-section.wide-narrow .wide {{ width: {r['wide']['w']}px; float: left; }}
-section.wide-narrow .narrow {{ width: {r['narrow']['w']}px; float: right;
-  border-left: 2px solid {c['accent']}; padding-left: 16px; }}
-
-/* bottom-anchored supporting text */
-section.headline-bottom .body {{
-  position: absolute; left: {m['left']}px; right: {m['right']}px;
-  bottom: {m['bottom']}px;
-}}
-
-/* field grid: boundaries as accent hairlines, crosses at the corners */
-section.field-grid .cells, section.grid-overlay {{
-  background-image:
-    repeating-linear-gradient(to right,
-      {c['accent']} 0 1px, transparent 1px {round(step_x)}px),
-    repeating-linear-gradient(to bottom,
-      {c['accent']} 0 1px, transparent 1px {round(step_y)}px);
-  background-position: {r['field_origin']['x']}px {r['field_origin']['y']}px;
-  background-size: {round(field_w + (step_x - field_w))}px 100%, 100% {round(r['grid']['h'])}px;
-  background-repeat: no-repeat;
-  opacity: .5;
-}}
+section.section .progress {{ position: absolute; left: {m['left']}px;
+  bottom: {m['bottom']}px; }}
+section.section .progress i {{ display: inline-block; width: 14px; height: 14px;
+  background: {c['accent']}; margin-right: 12px; }}
+section.section .progress i.off {{ background: #333; }}
 """
 
 
