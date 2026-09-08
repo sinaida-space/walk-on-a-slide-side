@@ -41,17 +41,25 @@ shared publicly. Choose:
   screens.
 - **faces.** One grotesk family for everything. Name a real fallback
   stack. The family must cover every script the deck uses.
-- **accent.** Transformative teal `#2F6364` by default. It marks the grid:
-  field rules, the title-band rule, registration crosses, the knockout
-  chip, section numerals. It is never a body-text colour, and there is
-  only one accent.
+- **accent.** Pure red `#FF0000` by default. It marks the grid: the short
+  rule by the headline, field rules, registration crosses, the section
+  numerals, the progress rail. It is never a body-text colour, and there
+  is only one accent.
+- **type contrast.** The headline is huge (3× body or more); every other
+  piece of text is one small size (~15 px). No mid-sizes, no label chips,
+  no eyebrow. “The 9-point face is immediately distinguishable from the
+  6-point face”. Make that gap unmistakable.
+- **placement.** The headline sits top-left in the title band. The
+  supporting text goes low (anchored to the bottom margin) or in the
+  right column, never beside the headline. Leave ample white space
+  between the two.
 - **field count.** From content density, per the table in
   `muller-brockmann.md`: 8 for most decks, 16 or 20 for data-dense, 32
   for reference.
 
 ```bash
-python3 scripts/grid.py --canvas 16:9 --body 22 --fields 8 \
-  --advance 0.5 --leading 1.3 --accent "#2F6364" --out system/
+python3 scripts/grid.py --canvas 16:9 --body 16 --fields 8 \
+  --advance 0.5 --leading 1.3 --accent "#FF0000" --out system/
 ```
 
 ## What grid.py derives
@@ -66,37 +74,40 @@ it computes, as the book does:
 4. columns = `floor(area_width / (target_chars × advance × body))`;
 5. gutter = one baseline;
 6. field arrangement N×M with one blank baseline between rows;
-7. a **title band**: the top field row set taller than the rest, so long
-   headlines have room (Müller-Brockmann’s 21-field annual-report scheme);
-8. type scale (title, headline, body, caption) as ratios of body;
+7. a **title band**: the top rows set taller than the rest, sized from the
+   headline’s own leading, so the big headline has room in the same place
+   on every slide (Müller-Brockmann’s 21-field annual-report scheme);
+8. type scale (title, headline, body, caption) as ratios of body, with an
+   extreme headline-to-body jump;
 9. colour roles (ink, ground, accent, muted).
 
 ## The layouts
 
-Every layout is a fixed allocation of whole fields, applied identically on
-every slide of its kind. The boundaries are drawn as accent hairlines so
-the structure is visible. See `muller-brockmann.md` for the field schemes
-these come from.
+Every layout puts the huge headline top-left in the title band and the
+small supporting text low or right. The structure is drawn with accent
+hairlines and registration crosses. Vary which layout a slide uses so the
+deck is not one shape repeated. See `muller-brockmann.md` for the field
+schemes these come from.
 
-| Layout | Field allocation | For |
+| Layout | Structure | For |
 |---|---|---|
-| `title` / `close` | full bleed, ink ground, headline on the lower third, a rule, a meta row | first and last slides |
-| `section` | ink or teal ground, short knockout title top-left, oversized section numeral bleeding off an edge, a progress rail | dividers |
-| `statement` | title band holds one sentence; the field grid below stays empty | a single claim, one keyword in the knockout chip |
-| `wide-narrow` | body or list in the wide columns (fields 1..n−1), a narrow right column for the source, the date, the label | most content slides (the 18-field 2-wide-1-narrow scheme) |
-| `field-grid` | content mapped to whole fields, every boundary ruled, registration crosses at the corners | comparisons, two- and three-part slides |
-| `caption-band` | a block on the field grid, a four-column caption strip ruled off below it | a figure, a diagram, a data block |
+| `title` / `close` | ink ground, huge headline lower-left, a short accent rule, a tiny meta row | first and last slides |
+| `section` | ink ground, huge title top-left, an oversized accent numeral bleeding off the lower-right, a five-segment progress rail | dividers |
+| `statement` | one big sentence in the band, a short accent rule, then open space; a tiny source note on the bottom margin; a sparse row of registration crosses | a single claim |
+| `right-column` | huge headline in the band; a short list in the right column, one small size, each item on an accent tick, an accent rule down the column’s left edge | supporting points behind a claim |
+| `bottom-block` | huge headline in the band; three or four short lines anchored to the bottom margin under a short accent rule; open space between | before/after, resources, a short set of facts |
+| `field-grid` | huge headline in the band; a ruled two-by-two (or one-by-n) grid below, accent hairlines, registration crosses at the corners, a tiny label and a small value per cell | scope, spec, comparison |
 
-`role` from the spine maps to a layout: `title`→`title`,
-`section`→`section`, `claim`/`context`→`statement` or `wide-narrow`,
-`evidence`/`data`→`field-grid` or `caption-band`, `objection`→`wide-narrow`,
-`cta`→`close`.
+`role` from the spine maps to a layout: `title`→`title`, `section`→`section`,
+`claim`/`context`→`statement`, `evidence`→`right-column` or `bottom-block`,
+`data`→`field-grid`, `objection`→`bottom-block`, `cta`→`statement` or
+`close`.
 
-`grid.py` writes the regions for each layout into `tokens.json` and a
-class per layout into `theme.css` (`section.title`, `section.wide-narrow`,
-and so on), plus a grid overlay you can toggle with a class while checking
-alignment. No rounded corners anywhere; the accent shows only as rules,
-crosses and the solid knockout chip.
+`grid.py` writes the regions into `tokens.json` and a class per layout
+into `theme.css` (`section.section`, `section.wide-narrow`,
+`section.headline-bottom`, and so on), plus a grid overlay you can toggle
+with a class while checking alignment. No rounded corners, no circles; the
+accent shows only as rules, crosses and the section numerals.
 
 ## Check the system before Stage 4
 

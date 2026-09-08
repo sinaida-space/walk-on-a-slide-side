@@ -103,14 +103,14 @@ It asks whether you already have a design system.
 - **If you do not** (anything shared publicly, or client work that needs
   its own identity), it constructs one from
   [`references/muller-brockmann.md`](references/muller-brockmann.md). The
-  default accent is transformative teal `#2F6364`, used only to mark the
+  default accent is pure red `#FF0000`, used only to mark the
   grid.
 
 Either way the grid, the type scale and the spacing come from the maths,
 not from taste. `grid.py` does the derivation:
 
 ```bash
-python3 scripts/grid.py --canvas 16:9 --body 22 --fields 8 --advance 0.50 --out system/
+python3 scripts/grid.py --canvas 16:9 --body 16 --fields 8 --advance 0.50 --out system/
 ```
 
 ### Stage 4: Build

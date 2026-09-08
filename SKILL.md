@@ -111,14 +111,14 @@ First question, always: **is there a design system to work inside?**
   Construct one from `references/muller-brockmann.md`: type area from the
   canvas and margin proportions, columns from type size, baseline from
   leading, fields from content density. The default accent is
-  transformative teal `#2F6364`, used only to mark the grid.
+  pure red `#FF0000`, used only to mark the grid.
 
 Either way the grid, the type scale and the spacing are derived by
 Müller-Brockmann’s maths. The eye does not choose them. That book is the
 bible here; if a number is not derivable from it, it does not go in.
 
 ```bash
-python3 scripts/grid.py --canvas 16:9 --body 22 --fields 8 --out system/
+python3 scripts/grid.py --canvas 16:9 --body 16 --fields 8 --out system/
 ```
 
 `grid.py` writes `system/tokens.json` (canvas, margins, type area, column
