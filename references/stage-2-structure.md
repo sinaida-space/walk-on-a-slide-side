@@ -45,6 +45,23 @@ ask.
 Section dividers are full-bleed title slides (see `muller-brockmann.md`)
 and do not count as content slides.
 
+## Adapt to the audience
+
+The same argument shifts emphasis by who is in the room. Use the framing
+answers from launch (audience, the one action, the time slot) to pick the
+pattern:
+
+| Audience | Prioritise | Structure | On the slides |
+|---|---|---|---|
+| Investor / fundraising | credibility, traction, a clear ask | assertion headlines, numeric evidence, problem → solution → evidence → ask | metrics shown visually; no stock imagery |
+| Executive / board | decisions, risks, trade-offs | recommendation first, then context → tension → resolution → proof → decision needed | one takeaway per chart, the “so what” at the top |
+| Sales / client | relevance to the client’s goals | map each slide to a client priority; answer the likely objections explicitly | before / after visuals, a case, clear ROI, minimal text |
+| Technical / engineering review | accuracy, depth, reproducibility | separate the high-level narrative from the detail; put deep dives in an appendix | precise diagrams and labelled charts; define terms once; keep jargon off the narrative slides |
+| All-hands / internal | clarity, alignment, morale | plain language, clear signposting; repeat the core message across sections | simple visuals, consistent branding; name the action for each team |
+| Conference / public talk | story, memorability, pacing | a clear arc (setup → tension → resolution → proof → close); rehearse the open and the close | one strong visual per slide, large type for a room |
+
+Note the pattern in `spine.md` so Stage 3 and Stage 4 keep to it.
+
 ## Write `spine.md`
 
 A table, one row per slide:
