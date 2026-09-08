@@ -42,9 +42,8 @@ shared publicly. Choose:
 - **faces.** One grotesk family for everything. Name a real fallback
   stack. The family must cover every script the deck uses.
 - **accent.** Pure red `#FF0000` by default. It marks the grid: the
-  full-height left bar, field hairlines, the section numeral and the solid
-  Farbfläche block. It is never a body-text colour, and there is only one
-  accent.
+  full-height left bar, field hairlines and the section numeral. It is
+  never a body-text colour, and there is only one accent.
 - **heading element.** A full-height accent bar at the left edge of every
   slide, one weight everywhere (~8 px). Never an underline, never an
   eyebrow.
@@ -101,7 +100,7 @@ layout a slide uses so the deck is not one shape repeated. See
 | `title` / `close` | ink ground, huge phrase centred vertically, the left bar, a tiny meta row at the foot | first and last slides |
 | `section` | ink ground, huge title centred vertically, the left bar, an oversized accent numeral bleeding off the lower-right; nothing else | dividers |
 | `statement` | the single accent phrase, set large and centred vertically, the left bar; a tiny source note under it; ample white above and below | a single claim |
-| `index` / `modules` | huge headline in the band; below, a horizontal row of equal outlined boxes, one per item, each with an oversized ghost number straddling its top edge, a short bold label and a small value inside; the row sits low with white space above. In `modules` one box is the solid accent Farbfläche carrying the key point, knocked out | supporting points, a checklist; `modules` for scope, spec, before/after, comparison |
+| `index` / `modules` | huge headline in the band; below, a horizontal row of equal outlined boxes, one per item, each identical: a hairline outline, an oversized ghost number at the top-right, a short bold label and a small value inside; the row sits low with white space above | `index` for supporting points and checklists; `modules` for scope, spec, before/after, comparison (label / value pairs) |
 
 `role` from the spine maps to a layout: `title`→`title`, `section`→`section`,
 `claim`/`context`→`statement`, `evidence`/`objection`→`index`,
@@ -109,11 +108,11 @@ layout a slide uses so the deck is not one shape repeated. See
 
 `grid.py` writes the regions into `tokens.json` and the classes into
 `theme.css` (`section::before` is the left bar, plus `.ghost`,
-`ul.index`, `.farbflache`, `.module`, `section.section`,
+`ul.index`, `.module`, `section.section`,
 `section.statement`), plus a grid overlay you can toggle with a class
 while checking alignment. No rounded corners, no circles, no registration
-crosses; the accent shows only as the left bar, field hairlines, the
-Farbfläche block and the section numeral.
+crosses, no accent box; the accent shows only as the left bar, the
+field hairlines and the section numeral.
 
 ## Check the system before Stage 4
 
