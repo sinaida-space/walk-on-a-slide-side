@@ -42,9 +42,9 @@ shared publicly. Choose:
 - **faces.** One grotesk family for everything. Name a real fallback
   stack. The family must cover every script the deck uses.
 - **accent.** Pure red `#FF0000` by default. It marks the grid: the
-  vertical heading rule, field hairlines, the section numeral, the
-  progress squares, the solid Farbfläche block. It is never a body-text
-  colour, and there is only one accent.
+  vertical heading rule, field hairlines, the section numeral and the
+  solid Farbfläche block. It is never a body-text colour, and there is
+  only one accent.
 - **heading element.** A vertical accent rule beside the display type, the
   height of the phrase. Never an underline, never an eyebrow.
 - **type contrast.** The display type is huge (3× body or more); every
@@ -93,9 +93,9 @@ layout a slide uses so the deck is not one shape repeated. See
 | Layout | Structure | For |
 |---|---|---|
 | `title` / `close` | ink ground, huge phrase centred vertically with the accent rule beside it, a tiny meta row at the foot | first and last slides |
-| `section` | ink ground, huge title centred vertically with the accent rule; an oversized accent numeral bleeding off the lower-right; a row of accent squares and “SECTION n OF N” at the foot | dividers |
+| `section` | ink ground, huge title centred vertically with the accent rule; an oversized accent numeral bleeding off the lower-right; nothing else | dividers |
 | `statement` | the single accent phrase, set large and centred vertically with the accent rule beside it; a tiny source note under it; ample white above and below | a single claim |
-| `index` | huge headline in the band with the accent rule; below, full-width rows separated by accent hairlines, each with a small leading number and one small size of text | supporting points, a checklist, a set of facts |
+| `index` | huge headline in the band with the accent rule; below, a horizontal row of outlined boxes, one per item, each with a small leading number and one small size of text; the row sits low with white space above | supporting points, a checklist, a set of facts |
 | `modules` | huge headline in the band; below, a two-by-two (or one-by-n) block grid; one block is a solid accent Farbfläche carrying the key point, knocked out; the others are open, an accent hairline on top, a tiny label and a small value | scope, spec, before/after, comparison |
 
 `role` from the spine maps to a layout: `title`→`title`, `section`→`section`,

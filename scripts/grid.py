@@ -12,8 +12,8 @@ scale, the colour roles and a set of named layout regions, then writes:
     <out>/theme.css     a Marp theme bound to those numbers
 
 The accent has one job: it marks the grid (the vertical heading rule,
-field hairlines, the section numeral, the progress squares, the solid
-Farbfläche block). No rounded corners are emitted.
+field hairlines, the section numeral and the solid Farbfläche block).
+No rounded corners are emitted.
 See references/muller-brockmann.md for why each step is what it is.
 
 Usage:
@@ -230,16 +230,15 @@ p, ul, ol, .source, .caption, footer {{
 }}
 .source, .caption, footer {{ color: {c['muted']}; }}
 
-/* index rows: one small size, full-width accent hairline above each,
-   a small number in the left margin */
-ul.index {{ list-style: none; margin: {base}px 0 0 0; padding: 0; }}
-ul.index li {{ border-top: 1px solid {c['accent']};
-  padding: {round(base / 2)}px 0 {base}px 46px; position: relative; }}
+/* index: a horizontal row of outlined boxes, one per item, sitting low
+   with white space above; a small leading number, one small text size */
+ul.index {{ list-style: none; margin: auto 0 0 0; padding: 0;
+  counter-reset: idx; display: flex; gap: 16px; align-items: flex-start; }}
+ul.index li {{ flex: 1; border: 1px solid {c['accent']}; padding: 16px; }}
 ul.index li::before {{ counter-increment: idx;
   content: counter(idx, decimal-leading-zero);
-  position: absolute; left: 0; font-size: {s['caption']}px;
-  color: {c['muted']}; }}
-ol.index, ul.index {{ counter-reset: idx; }}
+  display: block; font-size: {s['caption']}px; color: {c['muted']};
+  margin-bottom: 10px; }}
 
 /* solid accent block (Farbfläche): the key point, knocked out */
 .farbflache {{ background: {c['accent']}; color: {c['ground']};
@@ -257,16 +256,12 @@ ol.index, ul.index {{ counter-reset: idx; }}
 section.title, section.section, section.close {{
   background: {c['ink']}; color: {c['ground']};
 }}
+section.section {{ justify-content: center; }}
 section.section .numeral {{
   font-size: {round(s['title'] * 6)}px; line-height: 1;
   color: {c['accent']}; position: absolute; right: -2%; bottom: -14%;
   font-weight: 300;
 }}
-section.section .progress {{ position: absolute; left: {m['left']}px;
-  bottom: {m['bottom']}px; }}
-section.section .progress i {{ display: inline-block; width: 14px; height: 14px;
-  background: {c['accent']}; margin-right: 12px; }}
-section.section .progress i.off {{ background: #333; }}
 """
 
 
