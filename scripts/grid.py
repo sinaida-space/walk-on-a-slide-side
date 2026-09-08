@@ -4,17 +4,19 @@ grid.py — construct a slide design system by Müller-Brockmann's method.
 
 It does not choose values by eye. Given a canvas, a body size, a leading
 factor, a mean character advance and a field count, it derives the margin
-zone, the type area, the baseline unit, the column count and width, the
-gutter, the field arrangement, the type scale and the colour roles, then
-writes:
+zone, the type area, the baseline unit, the columns, the gutter, the field
+arrangement, a taller title band, the wide/narrow column split, the type
+scale, the colour roles and a set of named layout regions, then writes:
 
-    <out>/tokens.json   the numbers
-    <out>/theme.css      a Marp theme bound to those numbers
+    <out>/tokens.json   the numbers and the layout regions
+    <out>/theme.css     a Marp theme bound to those numbers
 
+The accent has one job: it marks the grid (rules, registration crosses,
+the knockout chip, section numerals). No rounded corners are emitted.
 See references/muller-brockmann.md for why each step is what it is.
 
 Usage:
-    python3 grid.py --canvas 16:9 --body 22 --fields 8 --advance 0.50 --out system/
+    python3 grid.py --canvas 16:9 --body 22 --fields 8 --advance 0.5 --out system/
     python3 grid.py --from system-in.json --canvas 16:9 --fields 20 --out system/
 """
 
@@ -24,42 +26,37 @@ import math
 import sys
 from pathlib import Path
 
-# --- canvas presets, in reference pixels -----------------------------------
-
 CANVASES = {
     "16:9": (1280, 720),
     "16:10": (1280, 800),
     "4:3": (1024, 768),
 }
 
-# Field-count -> (columns, rows) arrangements from the book's worked
-# examples (8, 20, 32) plus two useful screen ratios. Any count not here
-# falls back to the factor pair closest to the canvas aspect.
+# Field-count -> (columns, rows), from the book's worked schemes.
+# 18 is the "two wide, one narrow" scheme; any count not here falls back
+# to the factor pair closest to the canvas aspect.
 FIELD_ARRANGEMENTS = {
-    8: (4, 2),
-    12: (4, 3),
-    16: (4, 4),
-    18: (3, 6),
-    20: (4, 5),
-    32: (4, 8),
-    36: (6, 6),
+    8: (4, 2), 12: (4, 3), 16: (4, 4), 18: (3, 6),
+    20: (4, 5), 21: (3, 7), 32: (4, 8), 36: (6, 6),
 }
 
-# Margin zone as fractions of the canvas SHORT side. Ordered so the type
-# area sits slightly high and left of centre: left < top < right < bottom.
-# This holds Müller-Brockmann's rejection of equal margins and keeps the
-# type area near a 1:2 relation to the frame.
+# Margin zone as fractions of the canvas SHORT side, ordered
+# left < top < right < bottom so the type area sits slightly high and left.
 DEFAULT_MARGINS = {"left": 0.055, "top": 0.075, "right": 0.075, "bottom": 0.110}
 
-# Type scale as ratios of the body size (see muller-brockmann.md).
 TYPE_SCALE = {"title": 2.9, "headline": 1.65, "body": 1.0, "caption": 0.7}
 
 DEFAULT_COLOURS = {
-    "ink": "#111111",
-    "ground": "#F6F6F6",
-    "accent": "#CD0000",   # the grid-marking red; not a body colour
-    "muted": "#737373",
+    "ink": "#141413",
+    "ground": "#F4F4F2",
+    "accent": "#2F6364",   # transformative teal; marks the grid only
+    "muted": "#8A8A86",
 }
+
+
+def hexrgb(h):
+    h = h.lstrip("#")
+    return tuple(int(h[i:i + 2], 16) for i in (0, 2, 4))
 
 
 def parse_canvas(value):
@@ -69,16 +66,12 @@ def parse_canvas(value):
         w, h = value.lower().split("x")
         return int(w), int(h)
     if ":" in value:
-        # an aspect with no size -> scale to 720 on the short side
         a, b = (float(x) for x in value.split(":"))
-        if a >= b:
-            return round(720 * a / b), 720
-        return 720, round(720 * b / a)
+        return (round(720 * a / b), 720) if a >= b else (720, round(720 * b / a))
     raise ValueError(f"unrecognised canvas: {value}")
 
 
 def field_arrangement(fields, aspect):
-    """(columns, rows) for a field count, closest to the canvas aspect."""
     if fields in FIELD_ARRANGEMENTS:
         return FIELD_ARRANGEMENTS[fields]
     best = None
@@ -86,9 +79,9 @@ def field_arrangement(fields, aspect):
         if fields % cols:
             continue
         rows = fields // cols
-        ratio_err = abs((cols / rows) - aspect)
-        if best is None or ratio_err < best[0]:
-            best = (ratio_err, cols, rows)
+        err = abs((cols / rows) - aspect)
+        if best is None or err < best[0]:
+            best = (err, cols, rows)
     return best[1], best[2]
 
 
@@ -97,51 +90,62 @@ def build(canvas, body, leading, advance, fields, target_chars, faces, colours):
     short = min(page_w, page_h)
     aspect = page_w / page_h
 
-    # 1. margin zone (proportioned, never equal)
     m = {k: round(v * short) for k, v in DEFAULT_MARGINS.items()}
-
-    # 2. type area
     area_x, area_y = m["left"], m["top"]
     area_w = page_w - m["left"] - m["right"]
     area_h_raw = page_h - m["top"] - m["bottom"]
 
-    # 3. baseline unit, and type-area depth snapped to a whole number of units
     baseline = round(body * leading)
     area_units = area_h_raw // baseline
     area_h = area_units * baseline
 
-    # 4. columns from type size (about `target_chars` per line)
     columns = max(1, math.floor(area_w / (target_chars * advance * body)))
-
-    # 5. gutter = one blank leading line
     gutter = baseline
     col_w = (area_w - (columns - 1) * gutter) / columns
 
-    # 6. field arrangement: N columns x M rows, one blank baseline between rows
     f_cols, f_rows = field_arrangement(fields, aspect)
-    # each field row is K baselines deep: M*K + (M-1) blanks == area_units
-    field_rows_units = max(1, math.floor((area_units - (f_rows - 1)) / f_rows))
-    field_h = field_rows_units * baseline
     field_w = (area_w - (f_cols - 1) * gutter) / f_cols
 
-    # 7. type scale in px
+    # Title band: the top rows run taller so long headlines have room in
+    # the same place on every slide (21-field annual-report scheme).
+    band_units = 4
+    grid_units = area_units - band_units - 1          # one blank row below the band
+    field_rows_units = max(1, math.floor((grid_units - (f_rows - 1)) / f_rows))
+    field_h = field_rows_units * baseline
+
+    band = {"x": area_x, "y": area_y, "w": area_w, "h": band_units * baseline}
+    grid_top = area_y + band["h"] + baseline
+
+    # Wide/narrow split: the rightmost field column is the narrow margin
+    # column for source, date and label; the rest is the wide reading area.
+    narrow_w = field_w
+    wide_w = area_w - narrow_w - gutter
+    regions = {
+        "band": band,
+        "grid": {"x": area_x, "y": grid_top, "w": area_w,
+                 "h": area_y + area_h - grid_top},
+        "wide": {"x": area_x, "w": round(wide_w, 2)},
+        "narrow": {"x": round(area_x + wide_w + gutter, 2), "w": round(narrow_w, 2)},
+        "field_origin": {"x": area_x, "y": grid_top},
+        "field_step": {"x": round(field_w + gutter, 2), "y": field_h + baseline},
+    }
+
     scale = {k: round(body * r) for k, r in TYPE_SCALE.items()}
 
     tokens = {
         "canvas": {"w": page_w, "h": page_h, "aspect": round(aspect, 4)},
         "margins": m,
-        "type_area": {
-            "x": area_x, "y": area_y, "w": area_w, "h": area_h,
-            "units": area_units,
-        },
+        "type_area": {"x": area_x, "y": area_y, "w": area_w, "h": area_h,
+                      "units": area_units},
         "baseline": baseline,
         "leading_factor": leading,
         "columns": {"count": columns, "width": round(col_w, 2), "gutter": gutter},
-        "fields": {
-            "count": f_cols * f_rows, "cols": f_cols, "rows": f_rows,
-            "width": round(field_w, 2), "height": field_h,
-            "rows_in_baselines": field_rows_units,
-        },
+        "fields": {"count": f_cols * f_rows, "cols": f_cols, "rows": f_rows,
+                   "width": round(field_w, 2), "height": field_h,
+                   "rows_in_baselines": field_rows_units},
+        "regions": regions,
+        "layouts": ["title", "close", "section", "statement",
+                    "wide-narrow", "field-grid", "caption-band"],
         "type_scale": scale,
         "advance": advance,
         "target_chars": target_chars,
@@ -149,108 +153,117 @@ def build(canvas, body, leading, advance, fields, target_chars, faces, colours):
         "colours": colours,
         "notes": [],
     }
-
     if columns != f_cols:
         tokens["notes"].append(
             f"reading columns ({columns}) differ from field columns ({f_cols}); "
-            f"set body/target_chars or field count so they agree, or place body "
-            f"text on {columns} columns and images on {f_cols} fields."
-        )
+            f"set body/target_chars/fields so they agree, or put body text on "
+            f"{columns} columns and images on {f_cols} fields.")
     return tokens
 
 
 def theme_css(t, name):
-    c = t["colours"]
-    m = t["margins"]
-    s = t["type_scale"]
-    cv = t["canvas"]
-    base = t["baseline"]
-    col_w = t["columns"]["width"]
-    gutter = t["columns"]["gutter"]
+    c, m, s = t["colours"], t["margins"], t["type_scale"]
+    cv, base = t["canvas"], t["baseline"]
+    r = t["regions"]
+    ar, ag, ab = hexrgb(c["accent"])
+    field_w = t["fields"]["width"]
+    step_x = r["field_step"]["x"]
+    step_y = r["field_step"]["y"]
+    grid_w = round(t["columns"]["width"] * t["columns"]["count"]
+                   + t["columns"]["gutter"] * (t["columns"]["count"] - 1))
     return f"""/* @theme {name}
-   Generated by grid.py from tokens.json. Do not edit by hand — change the
-   grid.py flags and re-run. Every value here is derived, not chosen. */
+   Generated by grid.py from tokens.json. Do not edit by hand; change the
+   grid.py flags and re-run. Every value here is derived, not chosen.
+   The accent marks the grid only. No rounded corners. */
 
 section {{
-  width: {cv['w']}px;
-  height: {cv['h']}px;
+  width: {cv['w']}px; height: {cv['h']}px;
   padding: {m['top']}px {m['right']}px {m['bottom']}px {m['left']}px;
-  background: {c['ground']};
-  color: {c['ink']};
+  background: {c['ground']}; color: {c['ink']};
   font-family: {t['faces'].get('body', 'Inter, system-ui, sans-serif')};
-  font-size: {s['body']}px;
-  line-height: {base}px;
-  letter-spacing: 0;
+  font-size: {s['body']}px; line-height: {base}px; letter-spacing: 0;
+}}
+* {{ border-radius: 0 !important; }}
+
+/* eyebrow: uppercase, tracked, an accent rule above it */
+.eyebrow {{
+  font-size: {s['caption']}px; font-weight: 600;
+  letter-spacing: .12em; text-transform: uppercase;
+  border-top: 2px solid {c['accent']}; padding-top: 6px; display: inline-block;
 }}
 
-h1 {{ /* deck title / section divider — use _class: title or section */
+/* title band: headline zone across the top, ruled off below */
+h1 {{
   font-family: {t['faces'].get('display', 'inherit')};
-  font-size: {s['title']}px;
-  line-height: {base * 2}px;
-  font-weight: 700;
-  margin: 0;
+  font-size: {s['title']}px; line-height: {round(base * 1.9)}px;
+  font-weight: 700; margin: 0;
 }}
-
-h2 {{ /* the assertion headline — one full sentence, <= two lines */
+h2 {{
   font-family: {t['faces'].get('display', 'inherit')};
-  font-size: {s['headline']}px;
-  line-height: {base}px;
-  font-weight: 600;
-  margin: 0 0 {base}px 0;
-  max-width: {round(col_w * t['columns']['count'] + gutter * (t['columns']['count'] - 1))}px;
+  font-size: {s['headline']}px; line-height: {round(base * 1.35)}px;
+  font-weight: 600; margin: 0;
+  max-width: {grid_w}px;
+  border-bottom: 1px solid {c['accent']}; padding-bottom: {base}px;
+}}
+p, ul, ol {{ margin: {base}px 0 0 0; }}
+li {{ margin: 0 0 {base}px 0; list-style: none; }}
+li::before {{ content: ""; display: inline-block; width: 18px;
+  border-top: 1px solid {c['accent']}; vertical-align: middle;
+  margin-right: 12px; }}
+
+.source, .caption, footer {{
+  font-size: {s['caption']}px; color: {c['muted']}; line-height: {base}px;
 }}
 
-p, ul, ol {{ margin: 0 0 {base}px 0; }}
-li {{ margin: 0; }}
-
-.caption, footer, section::after {{
-  font-size: {s['caption']}px;
-  color: {c['muted']};
-  line-height: {base}px;
+/* section divider: knockout on the ink ground, oversized numeral */
+section.title, section.section, section.close {{
+  background: {c['ink']}; color: {c['ground']};
+}}
+section.section .numeral {{
+  font-size: {round(s['title'] * 6)}px; line-height: 1;
+  color: rgba({ar},{ag},{ab},.55); position: absolute; right: 0; bottom: -6%;
+  font-weight: 300;
 }}
 
-section.title, section.section {{
-  background: {c['ink']};
-  color: {c['ground']};
-  display: flex;
-  align-items: center;
-}}
-section.title h1, section.section h1 {{ color: {c['ground']}; }}
+/* the one accent chip: a solid rectangle, ground-colour text knocked out */
+.chip {{ background: {c['accent']}; color: {c['ground']};
+  padding: 0 .22em; box-decoration-break: clone; }}
 
-section.cta h2 {{ color: {c['accent']}; }}
+/* wide / narrow content split (18-field scheme) */
+section.wide-narrow .wide {{ width: {r['wide']['w']}px; float: left; }}
+section.wide-narrow .narrow {{ width: {r['narrow']['w']}px; float: right;
+  border-left: 1px solid {c['accent']}; padding-left: 16px; }}
 
-/* alignment check: add class="grid-overlay" while verifying */
-section.grid-overlay {{
+/* field grid: boundaries as accent hairlines, crosses at the corners */
+section.field-grid .cells, section.grid-overlay {{
   background-image:
     repeating-linear-gradient(to right,
-      rgba(205,0,0,.18) 0 1px,
-      transparent 1px {round(col_w)}px,
-      transparent {round(col_w)}px {round(col_w + gutter)}px),
+      {c['accent']} 0 1px, transparent 1px {round(step_x)}px),
     repeating-linear-gradient(to bottom,
-      rgba(205,0,0,.12) 0 1px,
-      transparent 1px {base}px);
-  background-position: {m['left']}px {m['top']}px;
-  background-size:
-    {round(col_w * t['columns']['count'] + gutter * (t['columns']['count'] - 1))}px 100%,
-    100% {t['type_area']['h']}px;
+      {c['accent']} 0 1px, transparent 1px {round(step_y)}px);
+  background-position: {r['field_origin']['x']}px {r['field_origin']['y']}px;
+  background-size: {round(field_w + (step_x - field_w))}px 100%, 100% {round(r['grid']['h'])}px;
   background-repeat: no-repeat;
+  opacity: .5;
 }}
 """
 
 
 def main(argv):
-    ap = argparse.ArgumentParser(description=__doc__,
-                                 formatter_class=argparse.RawDescriptionHelpFormatter)
+    ap = argparse.ArgumentParser(
+        description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
     ap.add_argument("--canvas", default="16:9", help="16:9 | 4:3 | 1280x720")
-    ap.add_argument("--body", type=float, default=22.0, help="body size in reference px")
-    ap.add_argument("--leading", type=float, default=1.3, help="leading factor (1.2–1.4)")
-    ap.add_argument("--advance", type=float, default=0.50,
+    ap.add_argument("--body", type=float, default=22.0, help="body size, reference px")
+    ap.add_argument("--leading", type=float, default=1.3, help="leading factor 1.2-1.4")
+    ap.add_argument("--advance", type=float, default=0.5,
                     help="mean character advance of the body face, in em")
-    ap.add_argument("--fields", type=int, default=8, help="8 | 12 | 20 | 32 | ...")
+    ap.add_argument("--fields", type=int, default=8, help="8 | 16 | 18 | 20 | 32 ...")
     ap.add_argument("--target-chars", type=int, default=32,
                     help="target characters per body line (32 slide, 20 caption)")
+    ap.add_argument("--accent", default=DEFAULT_COLOURS["accent"],
+                    help="accent hex; marks the grid only (default transformative teal)")
     ap.add_argument("--from", dest="from_file", default=None,
-                    help="json with {faces, colours, leading_factor, advance} to ingest")
+                    help="json with {faces, colours, leading_factor, advance}")
     ap.add_argument("--name", default="walk-on-a-slide-side", help="Marp theme name")
     ap.add_argument("--out", default="system", help="output directory")
     args = ap.parse_args(argv)
@@ -258,6 +271,7 @@ def main(argv):
     faces = {"display": "Inter, system-ui, sans-serif",
              "body": "Inter, system-ui, sans-serif"}
     colours = dict(DEFAULT_COLOURS)
+    colours["accent"] = args.accent
     leading, advance = args.leading, args.advance
 
     if args.from_file:
@@ -281,11 +295,13 @@ def main(argv):
           f"R{tokens['margins']['right']} B{tokens['margins']['bottom']}")
     print(f"type area   {tokens['type_area']['w']}x{tokens['type_area']['h']}  "
           f"({tokens['type_area']['units']} baselines of {tokens['baseline']}px)")
+    print(f"title band  {tokens['regions']['band']['w']}x{tokens['regions']['band']['h']}")
     print(f"columns     {tokens['columns']['count']} x {tokens['columns']['width']}px  "
           f"gutter {tokens['columns']['gutter']}px")
     print(f"fields      {tokens['fields']['cols']}x{tokens['fields']['rows']}  "
           f"{tokens['fields']['width']}x{tokens['fields']['height']}px")
-    print(f"type scale  {tokens['type_scale']}")
+    print(f"wide/narrow {tokens['regions']['wide']['w']}px / {tokens['regions']['narrow']['w']}px")
+    print(f"accent      {tokens['colours']['accent']}")
     for note in tokens["notes"]:
         print(f"note        {note}")
     print(f"written     {out/'tokens.json'}, {out/'theme.css'}")

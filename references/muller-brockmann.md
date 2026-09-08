@@ -117,6 +117,44 @@ does not affect it.
 An 8-field grid also subdivides cleanly into 16 (halve each field
 vertically) for captions and small figures, with no second grid.
 
+## Field schemes from the practical examples
+
+The book’s practical chapter (pp. 104–131) shows the schemes to build
+slide layouts from. These are the ones worth carrying:
+
+- **Title band (21-field, IBM Annual Report).** The top field row is set
+  taller than the rest so long titles have room at the head of every page,
+  in the same place every time. On a slide this is the headline zone: one
+  band across the top, ruled off below, the field grid underneath.
+- **Wide and narrow columns (18-field, Kunsttopographie).** Three columns,
+  two wide and one narrow. The running text goes in the wide columns; the
+  notes, captions and references go in the narrow one, aligned to the same
+  baseline. On a slide: body or list in the wide columns, a narrow right
+  column for the source, the date, the label.
+- **Caption strip (Louis Soutter, New Swiss Film).** Text in two columns,
+  captions in four. A block sits on the field grid and a finer caption
+  strip is ruled off below it, at a fixed relationship to the block.
+- **Registration crosses (Pharmacie Principale).** Instead of full rules,
+  a small cross at each field intersection. A lighter way to show the
+  grid on an otherwise open slide.
+- **Negative on a solid ground (Rosenthal).** All text knocked out of a
+  dark or accent ground. It works only when the text is short and the
+  leading is generous. Use it for section dividers, not for reading.
+
+## Consistency (corporate-identity spec, pp. 133–134)
+
+The kit is applied identically on every slide of its kind:
+
+- titles the same size, in the same position, in the same face;
+- subtitles the same size, the same distance from the text around them;
+- captions the same size, the same relationship to the block they label;
+- the same grid on every slide;
+- marginal notes always in the narrow column, on the baseline;
+- illustrations in whole-field sizes;
+- the same colour for the same kind of content;
+- the same leading throughout for a given size;
+- one or two whole blank lines to divide text, never a half line.
+
 ## Images in the grid
 
 - Every image is 1, 2, 3, 4 or more whole fields. “The fewer the
@@ -126,9 +164,10 @@ vertically) for captions and small figures, with no second grid.
   baseline. Captions sit in the blank line below, set on the field width.
 - Full-bleed is allowed as a deliberate “monumental” move. Keep it for
   section dividers and the title. Content slides stay inside the grid.
-- Müller-Brockmann marks the picture grid itself in **red rules**. That
-  is the origin of the red-rule language in `sinaida-grid-style`. When
-  constructing bespoke, red marks the grid and is not used for body text.
+- Müller-Brockmann marks the picture grid itself in coloured rules. In a
+  constructed system the accent has that one job: field rules, the
+  title-band rule, registration crosses, the knockout chip. It is never a
+  body-text colour.
 
 ## Type scale
 
@@ -149,14 +188,16 @@ semibold where the eye expects regular or bold.
 
 ## Colour
 
-- Historically headings were printed in red. In single-colour work the
-  book uses **type contrast** (size, weight) for emphasis instead.
-- A constructed system has one ink, one ground, one accent. The accent is
-  the grid-marking red unless the ingested design system says otherwise.
-  There is no second accent.
-- On a dark ground, lift small text off pure values. A hairline red on
-  black fails contrast below ~14 pt, so use a legible red at body size and
-  keep pure red for rules and large display.
+- Historically headings were printed in a second colour. In single-colour
+  work the book uses **type contrast** (size, weight) for emphasis
+  instead.
+- A constructed system has one ink, one ground, one accent. The default
+  accent is transformative teal `#2F6364`. A supplied design system’s own
+  accent replaces it. There is no second accent.
+- The accent marks the grid: rules, registration crosses, the knockout
+  chip, section numerals. On a dark ground, small accent text loses
+  contrast, so keep the accent for rules and large display and set small
+  text in ink or in the ground colour knocked out.
 
 ## Page numbers
 

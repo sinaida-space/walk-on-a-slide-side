@@ -97,12 +97,14 @@ costs nothing.
 
 It asks whether you already have a design system.
 
-- **If you do** (locally, that is the `sinaida-grid-style` skill), it
-  ingests your faces, your one red, your grey steps and your baseline
-  unit, and adds nothing of its own.
+- **If you do**, supply a tokens file or a brand spec and it ingests your
+  faces, your accent, your grey steps and your baseline unit, and adds
+  nothing of its own.
 - **If you do not** (anything shared publicly, or client work that needs
   its own identity), it constructs one from
-  [`references/muller-brockmann.md`](references/muller-brockmann.md).
+  [`references/muller-brockmann.md`](references/muller-brockmann.md). The
+  default accent is transformative teal `#2F6364`, used only to mark the
+  grid.
 
 Either way the grid, the type scale and the spacing come from the maths,
 not from taste. `grid.py` does the derivation:
