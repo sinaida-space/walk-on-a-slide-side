@@ -134,12 +134,20 @@ slide layouts from. These are the ones worth carrying:
 - **Caption strip (Louis Soutter, New Swiss Film).** Text in two columns,
   captions in four. A block sits on the field grid and a finer caption
   strip is ruled off below it, at a fixed relationship to the block.
-- **Registration crosses (Pharmacie Principale).** Instead of full rules,
-  a small cross at each field intersection. A lighter way to show the
-  grid on an otherwise open slide.
+- **Solid colour block, Farbfläche (photo/tint chapter, pp. 98–103).** A
+  solid accent rectangle occupying whole grid fields, with the type
+  knocked out of it or aligned to its edge. On a slide it carries the one
+  key point of a content grid: a short label and a short value in the
+  ground colour. Keep the text short; a long passage reversed out of pure
+  red is hard to read.
+- **The centred display phrase (musica viva poster, p. 111).** One phrase
+  set large, its words positioned to make a rhythm, centred in the field.
+  Small supporting text aligns to it. “A severe but elegant architecture.”
+  This is the model for a section title and for a single-claim slide: the
+  phrase sits on the optical centre, not at the top.
 - **Negative on a solid ground (Rosenthal).** All text knocked out of a
-  dark or accent ground. It works only when the text is short and the
-  leading is generous. Use it for section dividers, not for reading.
+  dark ground. It works only when the text is short and the leading is
+  generous. Use it for section dividers, not for reading.
 
 ## Consistency (corporate-identity spec, pp. 133–134)
 
@@ -165,25 +173,28 @@ The kit is applied identically on every slide of its kind:
 - Full-bleed is allowed as a deliberate “monumental” move. Keep it for
   section dividers and the title. Content slides stay inside the grid.
 - Müller-Brockmann marks the picture grid itself in coloured rules. In a
-  constructed system the accent has that one job: the short rule by the
-  headline, field rules, registration crosses, the section numerals. It is
-  never a body-text colour.
+  constructed system the accent has that one job: the vertical heading
+  rule, field hairlines, the Farbfläche block, the section numeral, the
+  progress squares. It is never a body-text colour.
 
 ## Type scale
 
-One family. The contrast is extreme by design: the headline dominates the
-slide and everything else is one small size. “The 9-point face is
+One family. The contrast is extreme by design: the display type dominates
+the slide and everything else is one small size. “The 9-point face is
 immediately distinguishable from the 6-point face”. Push that gap as far
 as it goes. There are no mid-sizes.
 
 | Role | Size (relative to body = 1) | Weight | Placement |
 |---|---|---|---|
-| Deck title / section divider | 5 | bold | lower-left / top-left |
-| Slide headline | 3.3 | semibold | top-left, in the title band |
-| Supporting text, list, source, caption, footer, page number | 1 | light / regular | bottom margin or right column |
+| Deck title / section divider | 5 | bold | centred vertically |
+| Single-claim phrase | 3 | bold | centred vertically |
+| Content headline | 3.3 | semibold | top-left, in the title band |
+| Supporting text, list, source, caption, footer, page number | 1 | light / regular | below the headline, or at the foot |
 
-The supporting text is never set beside the headline and never in a
-second size. Leave ample white space between the headline and it.
+The heading element is a vertical accent rule beside the display type, the
+height of the phrase. The supporting text is never set beside the
+headline and never in a second size. Leave ample white space between
+them.
 
 ## Colour
 
@@ -193,13 +204,14 @@ second size. Leave ample white space between the headline and it.
 - A constructed system has one ink, one ground, one accent. The default
   accent is pure red `#FF0000`. A supplied design system’s own accent
   replaces it. There is no second accent.
-- The accent marks the grid: the short rule by the headline, field rules,
-  registration crosses, the section numerals, the progress rail. On a
+- The accent marks the grid: the vertical heading rule, field hairlines,
+  the Farbfläche block, the section numeral, the progress squares. On a
   dark ground, small accent text loses contrast, so keep the accent for
-  rules and large display and set small text in ink or knocked out of the
+  rules and large blocks and set small text in ink or knocked out of the
   ground.
-- No label chips, no eyebrow rules, no highlighter behind a word. Emphasis
-  is size and weight.
+- No label chips, no eyebrow rules, no underline under a headline, no
+  registration crosses, no highlighter behind a word. Emphasis is size,
+  weight and the Farbfläche block.
 
 ## Page numbers
 
