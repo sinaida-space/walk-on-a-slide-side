@@ -1,6 +1,6 @@
-# Stage 4 — Build
+# Stage 4. Build
 
-Goal: assemble `deck.md` from `spine.md` + `system/`, render to the
+Goal: assemble `deck.md` from `spine.md` and `system/`, render to the
 format(s) the user picks, and verify the rendered output before handing
 it over.
 
@@ -12,13 +12,14 @@ Ask with `AskUserQuestion`; more than one answer is allowed.
 |---|---|---|
 | **Marp HTML** | `marp deck.md --theme system/theme.css -o deck.html` | web-first, in version control, live editing, exports its own PDF |
 | **PDF** | `marp deck.md --theme system/theme.css --pdf --allow-local-files -o deck.pdf` | a fixed artefact to send or print |
-| **PDF, print-grade** | Typst (below) | tight grid control, crop marks, CMYK-ish print |
+| **PDF, print-grade** | Typst (below) | tight grid control, crop marks, print production |
 | **PPTX** | `marp deck.md --theme system/theme.css --pptx -o deck.pptx` | the recipient needs the layout in PowerPoint |
-| **PPTX, editable** | the `pptx` skill, fed `spine.md` + `tokens.json` | the recipient will rewrite the content |
+| **PPTX, editable** | the `pptx` skill, fed `spine.md` and `tokens.json` | the recipient will rewrite the content |
 
-Marp is the single source for HTML, PDF and a layout-only PPTX. Use Typst
-only when print production needs it; use the `pptx` skill only when the
-file must be truly editable (Marp's PPTX is pictures of slides).
+Marp is the single source for HTML, PDF and a layout-only PPTX. Reach for
+Typst only when print production needs it. Reach for the `pptx` skill only
+when the file must be truly editable, since Marp’s PPTX is pictures of
+slides.
 
 Install Marp if absent: `npm i -g @marp-team/marp-cli`.
 
@@ -55,41 +56,41 @@ paginate: true
 Owner: <name>. Decision needed: <amount>.
 ```
 
-- Slide title = the assertion headline verbatim from the spine.
-- `_class: title` / `section` / `cta` map to the theme's full-bleed and
+- Slide title is the assertion headline copied verbatim from the spine.
+- `_class: title` / `section` / `cta` map to the theme’s full-bleed and
   emphasis layouts.
 - Charts: generate as SVG sized to a whole number of fields (see
-  `tokens.json` → `field`), title the chart with its takeaway, embed with
-  `--allow-local-files`. Keep to one comparison.
-- Speaker notes go in `<!-- ... -->` HTML comments — Marp keeps them out
-  of the slide and into presenter view / PDF notes.
+  `tokens.json` key `field`), title the chart with its takeaway, embed
+  with `--allow-local-files`. Keep to one comparison.
+- Speaker notes go in `<!-- ... -->` HTML comments. Marp keeps them out of
+  the slide and puts them in presenter view and the PDF notes.
 
 ## Typography
 
 Run the whole `deck.md` through `typocheck.py` before rendering. The deck
-inherits every rule from Stage 1; headlines especially — no em-dash, no
-"not A but B", non-breaking spaces glue the last two words of every
-headline so nothing widows on wrap.
+inherits every rule from Stage 1. Headlines especially: no em-dash, no
+contrastive “not A, but B”, and a non-breaking space gluing the last two
+words of every headline so nothing widows on wrap.
 
 ```bash
 python3 ~/.claude/skills/typography/scripts/typocheck.py deck.md
 ```
 
-## Verify — do not skip
+## Verify. Do not skip
 
 After rendering, open the output and go slide by slide:
 
 1. **Headlines read as sentences.** Walk them top to bottom as a
-   paragraph; it should argue the thesis.
-2. **Nothing overflows.** Body inside the type area, bottom margin
-   intact, headline ≤ two lines. If a slide overflows, cut words (Stage
-   2), do not shrink type.
-3. **One idea per slide.** Any slide you can describe with "and" goes
+   paragraph; they should argue the thesis.
+2. **Nothing overflows.** Body inside the type area, bottom margin intact,
+   headline at most two lines. If a slide overflows, cut words (Stage 2).
+   Shrinking the type is not an option.
+3. **One idea per slide.** Any slide you can describe with an “and” goes
    back to Stage 2 to be split.
-4. **Data slides carry their takeaway** in the chart title, and show one
+4. **Data slides carry their takeaway** in the chart title and show one
    comparison.
 5. **Last slide is the ask**, with an owner and a specific action.
-6. **Grid holds.** Spot-check three slides with the theme's grid overlay
+6. **Grid holds.** Spot-check three slides with the theme’s grid-overlay
    class; baselines land on grid lines.
 
 Then screenshot the rendered deck (a contact sheet of all slides is
@@ -99,14 +100,14 @@ at as done.
 
 ## Typst route (print-grade only)
 
-When the user asked for print-grade PDF: emit a `deck.typ` that reads the
+When the user asked for print-grade PDF, emit a `deck.typ` that reads the
 same `tokens.json`, sets `page` to the canvas, `margin` to the token
-margins, and a `grid`/`place` layout on the baseline. Render with
+margins, and a `grid` / `place` layout on the baseline. Render with
 `typst compile deck.typ deck.pdf`. Keep the type scale, colours and field
-maths identical to `tokens.json` — the Typst deck and the Marp deck must
-be the same design in two renderers, not two designs.
+maths identical to `tokens.json`. The Typst deck and the Marp deck are
+the same design in two renderers.
 
 ## Output
 
-`deck.md`, `deck.html` / `deck.pdf` / `deck.pptx` as chosen, and a
+`deck.md`, then `deck.html` / `deck.pdf` / `deck.pptx` as chosen, and a
 screenshot sent to the user.
