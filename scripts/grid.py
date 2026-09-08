@@ -225,15 +225,22 @@ h2 {{ font-size: {s['headline']}px; line-height: {s['headline_leading']}px;
 
 /* the oversized ghost number: it echoes the section numeral. One fixed
    size across the whole deck (never scaled to fit a word), semi-
-   transparent, straddling the box's top edge via a negative top margin.
-   No rule ever runs through it. It replaces every small caps label. */
+   transparent, sitting at the top-RIGHT of the box and straddling its top
+   edge via a negative top margin. No rule ever runs through it. The label
+   and value stay top-left, clear of it. It replaces every small caps
+   label. */
 .ghost, ul.index li::before {{
   font-family: {t['faces'].get('display', 'inherit')};
   font-size: {round(s['body'] * 5.5)}px; font-weight: 600;
-  color: {c['ink']}; opacity: .14; line-height: .8;
-  display: block; margin: -0.44em 0 0.10em 0;
+  color: {c['ink']}; opacity: .17; line-height: .8;
+  position: absolute; top: 0; right: 12px;
+  transform: translateY(-0.44em);
 }}
-.farbflache .ghost {{ color: {c['ground']}; opacity: .45; }}
+ul.index li, .module, .farbflache {{ position: relative; }}
+/* on the solid Farbfläche the number needs real contrast; keep it fully
+   on the red, not straddling above onto the ground */
+.farbflache .ghost {{ color: {c['ground']}; opacity: .62;
+  transform: translateY(0.06em); }}
 
 /* title / statement / close: display phrase centred vertically
    ("musica viva" principle) */

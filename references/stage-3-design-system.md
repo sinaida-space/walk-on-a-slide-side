@@ -52,8 +52,8 @@ shared publicly. Choose:
   other piece of text is one small size (~15 px). A number label is set
   as an **oversized ghost** that echoes the section numeral: one fixed
   size across the whole deck (never scaled to fit a word), semi-
-  transparent, straddling the box's top edge, with no rule ever running
-  through it. It reads as a layer under the content, never as a small caps
+  transparent, sitting at the top-right of the box and straddling its top edge,
+  with no rule ever running through it. It reads as a layer under the content, never as a small caps
   tag. No mid-sizes, no label chips. “The 9-point face is immediately
   distinguishable from the 6-point face”. Make that gap unmistakable, and
   keep the headline heavier than the ghost.
