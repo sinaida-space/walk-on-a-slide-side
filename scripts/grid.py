@@ -237,10 +237,11 @@ h2 {{ font-size: {s['headline']}px; line-height: {s['headline_leading']}px;
   transform: translateY(-0.44em);
 }}
 ul.index li, .module, .farbflache {{ position: relative; }}
-/* on the solid Farbfläche the number needs real contrast; keep it fully
-   on the red, not straddling above onto the ground */
-.farbflache .ghost {{ color: {c['ground']}; opacity: .62;
-  transform: translateY(0.06em); }}
+/* white on pure red has no real contrast, so on the solid Farbfläche the
+   ghost number is a dark knockout instead — a deboss that reads on the
+   red — and it stays fully inside the block, not straddling above. */
+.farbflache .ghost {{ color: {c['ink']}; opacity: .30;
+  transform: translateY(0.55em); }}
 
 /* title / statement / close: display phrase centred vertically
    ("musica viva" principle) */
