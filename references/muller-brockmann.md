@@ -135,12 +135,6 @@ slide layouts from. These are the ones worth carrying:
 - **Caption strip (Louis Soutter, New Swiss Film).** Text in two columns,
   captions in four. A block sits on the field grid and a finer caption
   strip is ruled off below it, at a fixed relationship to the block.
-- **Solid colour block, Farbfläche (photo/tint chapter, pp. 98–103).** A
-  solid accent rectangle occupying whole grid fields, with the type
-  knocked out of it or aligned to its edge. On a slide it carries the one
-  key point of a content grid: a short label and a short value in the
-  ground colour. Keep the text short; a long passage reversed out of pure
-  red is hard to read.
 - **The centred display phrase (musica viva poster, p. 111).** One phrase
   set large, its words positioned to make a rhythm, centred in the field.
   Small supporting text aligns to it. “A severe but elegant architecture.”
@@ -175,7 +169,7 @@ The kit is applied identically on every slide of its kind:
   section dividers and the title. Content slides stay inside the grid.
 - Müller-Brockmann marks the picture grid itself in coloured rules. In a
   constructed system the accent has that one job: the full-height left
-  bar, field hairlines, the Farbfläche block and the section numeral. It
+  bar, field hairlines and the section numeral. It
   is never a body-text colour.
 
 ## Type scale
@@ -209,12 +203,12 @@ in a second size. Leave ample white space between them.
   accent is pure red `#FF0000`. A supplied design system’s own accent
   replaces it. There is no second accent.
 - The accent marks the grid: the full-height left bar, field hairlines,
-  the Farbfläche block and the section numeral. On a dark ground, small
+  the section numeral. On a dark ground, small
   accent text loses contrast, so keep the accent for rules and large
   blocks and set small text in ink or knocked out of the ground.
 - No label chips, no eyebrow rules, no underline under a headline, no
   registration crosses, no highlighter behind a word. Emphasis is size,
-  weight and the Farbfläche block.
+  weight.
 
 ## Page numbers
 

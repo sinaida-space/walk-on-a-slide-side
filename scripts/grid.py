@@ -12,8 +12,8 @@ scale, the colour roles and a set of named layout regions, then writes:
     <out>/theme.css     a Marp theme bound to those numbers
 
 The accent has one job: it marks the grid (the vertical heading rule,
-field hairlines, the section numeral and the solid Farbfläche block).
-No rounded corners are emitted.
+field hairlines and the section numeral). No rounded corners are
+emitted.
 See references/muller-brockmann.md for why each step is what it is.
 
 Usage:
@@ -236,12 +236,6 @@ h2 {{ font-size: {s['headline']}px; line-height: {s['headline_leading']}px;
   position: absolute; top: 0; right: 12px;
   transform: translateY(-0.44em);
 }}
-ul.index li, .module, .farbflache {{ position: relative; }}
-/* white on pure red has no real contrast, so on the solid Farbfläche the
-   ghost number is a dark knockout instead — a deboss that reads on the
-   red — and it stays fully inside the block, not straddling above. */
-.farbflache .ghost {{ color: {c['ink']}; opacity: .30;
-  transform: translateY(0.55em); }}
 
 /* title / statement / close: display phrase centred vertically
    ("musica viva" principle) */
@@ -258,18 +252,15 @@ p, ul, ol, .source, .caption, footer {{
 .module .label {{ font-weight: 600; }}
 
 /* index and modules: a horizontal row of equal outlined boxes, sitting
-   low with white space above; each box carries the ghost number and its
-   text. In modules one box is the solid accent Farbfläche. */
+   low with white space above. Every box is the same — hairline outline, a
+   ghost number top-right, a bold label and a light value inside. There is
+   no accent box. */
 ul.index, .modules {{ list-style: none; margin: auto 0 0 0; padding: 0;
   counter-reset: idx; display: flex; gap: 16px; align-items: stretch; }}
-ul.index li, .module, .farbflache {{ flex: 1; padding: 16px;
+ul.index li, .module {{ flex: 1; padding: 16px; position: relative;
   border: 1px solid {c['accent']}; }}
 ul.index li::before {{ counter-increment: idx;
   content: counter(idx, decimal-leading-zero); }}
-
-/* solid accent block (Farbfläche): the key point, knocked out */
-.farbflache {{ background: {c['accent']}; color: {c['ground']};
-  border-color: {c['accent']}; }}
 
 /* section divider: knockout on the ink ground; the section numeral is
    oversized and bleeds off the lower-right edge */
