@@ -54,8 +54,9 @@ the proportions”.
   out of the page”.
 
 `grid.py` default for a 16:9 canvas sets margins as fractions of the short
-side: left `0.055`, top `0.075`, right `0.075`, bottom `0.11`. That holds
-the progression and leaves a type area close to 1 : 2 of the frame.
+side: left `0.075`, top `0.11`, right `0.085`, bottom `0.10`. These are
+generous, museum-guide margins. They hold the progression and leave a
+type area close to 1 : 2 of the frame.
 Override per project and keep the ordering.
 
 ## The three formulas
@@ -174,8 +175,8 @@ The kit is applied identically on every slide of its kind:
   section dividers and the title. Content slides stay inside the grid.
 - Müller-Brockmann marks the picture grid itself in coloured rules. In a
   constructed system the accent has that one job: the vertical heading
-  rule, field hairlines, the Farbfläche block, the section numeral, the
-  progress squares. It is never a body-text colour.
+  rule, field hairlines, the Farbfläche block and the section numeral.
+  It is never a body-text colour.
 
 ## Type scale
 
@@ -205,8 +206,7 @@ them.
   accent is pure red `#FF0000`. A supplied design system’s own accent
   replaces it. There is no second accent.
 - The accent marks the grid: the vertical heading rule, field hairlines,
-  the Farbfläche block, the section numeral, the progress squares. On a
-  dark ground, small accent text loses contrast, so keep the accent for
+  the Farbfläche block and the section numeral. On a dark ground, small accent text loses contrast, so keep the accent for
   rules and large blocks and set small text in ink or knocked out of the
   ground.
 - No label chips, no eyebrow rules, no underline under a headline, no
