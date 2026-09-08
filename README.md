@@ -1,4 +1,5 @@
-![walk-on-a-slide-side](assets/banner-top.png)
+<img width="3072" height="384" alt="image" src="https://github.com/user-attachments/assets/c45d1024-89ce-40cd-93e9-594536e3774f" />
+
 
 # walk-on-a-slide-side
 
