@@ -174,9 +174,9 @@ The kit is applied identically on every slide of its kind:
 - Full-bleed is allowed as a deliberate “monumental” move. Keep it for
   section dividers and the title. Content slides stay inside the grid.
 - Müller-Brockmann marks the picture grid itself in coloured rules. In a
-  constructed system the accent has that one job: the vertical heading
-  rule, field hairlines, the Farbfläche block and the section numeral.
-  It is never a body-text colour.
+  constructed system the accent has that one job: the full-height left
+  bar, field hairlines, the Farbfläche block and the section numeral. It
+  is never a body-text colour.
 
 ## Type scale
 
@@ -190,12 +190,14 @@ as it goes. There are no mid-sizes.
 | Deck title / section divider | 5 | bold | centred vertically |
 | Single-claim phrase | 3 | bold | centred vertically |
 | Content headline | 3.3 | semibold | top-left, in the title band |
+| Oversized ghost label | 2.5 | semibold, ~16 % opacity | above its block, one size everywhere |
 | Supporting text, list, source, caption, footer, page number | 1 | light / regular | below the headline, or at the foot |
 
-The heading element is a vertical accent rule beside the display type, the
-height of the phrase. The supporting text is never set beside the
-headline and never in a second size. Leave ample white space between
-them.
+The heading element is a full-height accent bar at the left edge of every
+slide, one weight everywhere. A category label is set as an oversized
+ghost, not a small caps tag, and it always reads lighter than the
+headline. The supporting text is never set beside the headline and never
+in a second size. Leave ample white space between them.
 
 ## Colour
 
@@ -205,10 +207,10 @@ them.
 - A constructed system has one ink, one ground, one accent. The default
   accent is pure red `#FF0000`. A supplied design system’s own accent
   replaces it. There is no second accent.
-- The accent marks the grid: the vertical heading rule, field hairlines,
-  the Farbfläche block and the section numeral. On a dark ground, small accent text loses contrast, so keep the accent for
-  rules and large blocks and set small text in ink or knocked out of the
-  ground.
+- The accent marks the grid: the full-height left bar, field hairlines,
+  the Farbfläche block and the section numeral. On a dark ground, small
+  accent text loses contrast, so keep the accent for rules and large
+  blocks and set small text in ink or knocked out of the ground.
 - No label chips, no eyebrow rules, no underline under a headline, no
   registration crosses, no highlighter behind a word. Emphasis is size,
   weight and the Farbfläche block.
