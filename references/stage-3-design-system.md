@@ -4,6 +4,13 @@ Goal: a grid, a type scale, a colour set and a small set of named layouts,
 all derived by Müller-Brockmann’s maths (`muller-brockmann.md`), emitted
 as `system/tokens.json` and `system/theme.css`.
 
+The skill ships its own built-in design system. **Read
+`design-system.md`** for the full spec: the tokens, the full-height left
+bar, the oversized ghost number, the five layouts, the colour rules and
+the Never list. A user-supplied system layers its materials (faces,
+accent, greys, ground/ink, baseline) over that structure; this stage
+reads the materials and runs the maths.
+
 ## First question, always
 
 **Is there a design system to work inside?** Ask before constructing

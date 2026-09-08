@@ -41,6 +41,19 @@ idea.
 - **`deck.html` / `deck.pdf` / `deck.pptx`.** The rendered deck, in the
   format you ask for, checked slide by slide before it reaches you.
 
+## The look
+
+The skill ships a built-in design system: a full-height red rule down the
+left edge, huge display type against one small text size, oversized ghost
+numbers, section dividers with a numeral bleeding off the corner, and
+generous white space. It reads like an art-museum booklet.
+[`references/design-system.md`](references/design-system.md) is the full
+spec, and [`EXAMPLE-SLIDE-DECK.pdf`](EXAMPLE-SLIDE-DECK.pdf) is that
+system rendered as a project introduction.
+
+When you bring your own design system, its faces, accent, greys and
+spacing unit layer over that structure.
+
 ## How to use it
 
 Install as a git checkout under `~/.claude/skills/`:
