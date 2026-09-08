@@ -154,4 +154,5 @@ banner imagery is separate ([`LICENSE-ARTWORK`](LICENSE-ARTWORK)). The
 Müller-Brockmann book is referenced, not reproduced; obtain it to read
 the method at source. See [`NOTICE`](NOTICE).
 
-![walk-on-a-slide-side](assets/banner-bottom.png)
+<img width="3072" height="384" alt="image" src="https://github.com/user-attachments/assets/edadb9be-0def-4b24-aa6b-8777dbc1b3ca" />
+
