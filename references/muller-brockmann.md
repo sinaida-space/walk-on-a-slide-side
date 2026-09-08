@@ -165,26 +165,25 @@ The kit is applied identically on every slide of its kind:
 - Full-bleed is allowed as a deliberate “monumental” move. Keep it for
   section dividers and the title. Content slides stay inside the grid.
 - Müller-Brockmann marks the picture grid itself in coloured rules. In a
-  constructed system the accent has that one job: field rules, the
-  title-band rule, registration crosses, the knockout chip. It is never a
-  body-text colour.
+  constructed system the accent has that one job: the short rule by the
+  headline, field rules, registration crosses, the section numerals. It is
+  never a body-text colour.
 
 ## Type scale
 
-One family. Sizes must be unmistakably different: “the 9-point face is
-immediately distinguishable from the 6-point face”. Do not put two sizes
-one step apart on the same slide.
+One family. The contrast is extreme by design: the headline dominates the
+slide and everything else is one small size. “The 9-point face is
+immediately distinguishable from the 6-point face”. Push that gap as far
+as it goes. There are no mid-sizes.
 
-| Role | Size (relative to body = 1) | Weight |
-|---|---|---|
-| Deck title / section divider | 2.6–3.2 | bold |
-| Slide assertion headline | 1.5–1.8 | semibold or bold |
-| Body | 1 | regular |
-| Caption, source, footer, page number | 0.7 | regular |
+| Role | Size (relative to body = 1) | Weight | Placement |
+|---|---|---|---|
+| Deck title / section divider | 5 | bold | lower-left / top-left |
+| Slide headline | 3.3 | semibold | top-left, in the title band |
+| Supporting text, list, source, caption, footer, page number | 1 | light / regular | bottom margin or right column |
 
-Weight steps carry grey value: regular is a light grey mass, semibold
-medium, bold dark. Pick steps that are clearly separated. Do not use
-semibold where the eye expects regular or bold.
+The supporting text is never set beside the headline and never in a
+second size. Leave ample white space between the headline and it.
 
 ## Colour
 
@@ -192,12 +191,15 @@ semibold where the eye expects regular or bold.
   work the book uses **type contrast** (size, weight) for emphasis
   instead.
 - A constructed system has one ink, one ground, one accent. The default
-  accent is transformative teal `#2F6364`. A supplied design system’s own
-  accent replaces it. There is no second accent.
-- The accent marks the grid: rules, registration crosses, the knockout
-  chip, section numerals. On a dark ground, small accent text loses
-  contrast, so keep the accent for rules and large display and set small
-  text in ink or in the ground colour knocked out.
+  accent is pure red `#FF0000`. A supplied design system’s own accent
+  replaces it. There is no second accent.
+- The accent marks the grid: the short rule by the headline, field rules,
+  registration crosses, the section numerals, the progress rail. On a
+  dark ground, small accent text loses contrast, so keep the accent for
+  rules and large display and set small text in ink or knocked out of the
+  ground.
+- No label chips, no eyebrow rules, no highlighter behind a word. Emphasis
+  is size and weight.
 
 ## Page numbers
 

@@ -12,7 +12,7 @@ scale, the colour roles and a set of named layout regions, then writes:
     <out>/theme.css     a Marp theme bound to those numbers
 
 The accent has one job: it marks the grid (rules, registration crosses,
-the knockout chip, section numerals). No rounded corners are emitted.
+the section numerals, the progress rail). No rounded corners are emitted.
 See references/muller-brockmann.md for why each step is what it is.
 
 Usage:
@@ -44,12 +44,15 @@ FIELD_ARRANGEMENTS = {
 # left < top < right < bottom so the type area sits slightly high and left.
 DEFAULT_MARGINS = {"left": 0.055, "top": 0.075, "right": 0.075, "bottom": 0.110}
 
-TYPE_SCALE = {"title": 2.9, "headline": 1.65, "body": 1.0, "caption": 0.7}
+# Extreme contrast: the headline dominates, everything else is one small
+# size. No mid-sizes. "The 9-point face is immediately distinguishable
+# from the 6-point face."
+TYPE_SCALE = {"title": 5.0, "headline": 3.3, "body": 1.0, "caption": 0.82}
 
 DEFAULT_COLOURS = {
-    "ink": "#141413",
-    "ground": "#F4F4F2",
-    "accent": "#2F6364",   # transformative teal; marks the grid only
+    "ink": "#111111",
+    "ground": "#FAFAF8",
+    "accent": "#FF0000",   # pure red; marks the grid only (never body text)
     "muted": "#8A8A86",
 }
 
@@ -132,6 +135,22 @@ def build(canvas, body, leading, advance, fields, target_chars, faces, colours):
 
     scale = {k: round(body * r) for k, r in TYPE_SCALE.items()}
 
+    # Title band holds the big headline: sized from the headline's own
+    # leading, room for up to three lines, snapped to whole baselines.
+    head_lead = round(scale["headline"] * 1.06)
+    band_units = max(4, math.ceil((3 * head_lead) / baseline))
+    grid_units = area_units - band_units - 1
+    field_rows_units = max(1, math.floor((grid_units - (f_rows - 1)) / f_rows))
+    field_h = field_rows_units * baseline
+    band["h"] = band_units * baseline
+    grid_top = area_y + band["h"] + baseline
+    regions["band"]["h"] = band["h"]
+    regions["grid"] = {"x": area_x, "y": grid_top, "w": area_w,
+                       "h": area_y + area_h - grid_top}
+    regions["field_origin"] = {"x": area_x, "y": grid_top}
+    regions["field_step"] = {"x": round(field_w + gutter, 2), "y": field_h + baseline}
+    scale["headline_leading"] = head_lead
+
     tokens = {
         "canvas": {"w": page_w, "h": page_h, "aspect": round(aspect, 4)},
         "margins": m,
@@ -145,7 +164,7 @@ def build(canvas, body, leading, advance, fields, target_chars, faces, colours):
                    "rows_in_baselines": field_rows_units},
         "regions": regions,
         "layouts": ["title", "close", "section", "statement",
-                    "wide-narrow", "field-grid", "caption-band"],
+                    "right-column", "bottom-block", "field-grid"],
         "type_scale": scale,
         "advance": advance,
         "target_chars": target_chars,
@@ -185,54 +204,58 @@ section {{
 }}
 * {{ border-radius: 0 !important; }}
 
-/* eyebrow: uppercase, tracked, an accent rule above it */
-.eyebrow {{
-  font-size: {s['caption']}px; font-weight: 600;
-  letter-spacing: .12em; text-transform: uppercase;
-  border-top: 2px solid {c['accent']}; padding-top: 6px; display: inline-block;
-}}
-
-/* title band: headline zone across the top, ruled off below */
+/* One rule of contrast: the headline is huge, everything else is one
+   small size. No mid-sizes. No label chips, no eyebrows. */
 h1 {{
   font-family: {t['faces'].get('display', 'inherit')};
-  font-size: {s['title']}px; line-height: {round(base * 1.9)}px;
-  font-weight: 700; margin: 0;
+  font-size: {s['title']}px; line-height: {round(s['title'] * 1.02)}px;
+  font-weight: 700; margin: 0; letter-spacing: -0.01em;
 }}
 h2 {{
   font-family: {t['faces'].get('display', 'inherit')};
-  font-size: {s['headline']}px; line-height: {round(base * 1.35)}px;
-  font-weight: 600; margin: 0;
-  max-width: {grid_w}px;
-  border-bottom: 1px solid {c['accent']}; padding-bottom: {base}px;
+  font-size: {s['headline']}px; line-height: {s['headline_leading']}px;
+  font-weight: 600; margin: 0; max-width: {grid_w}px;
+  letter-spacing: -0.01em;
 }}
-p, ul, ol {{ margin: {base}px 0 0 0; }}
-li {{ margin: 0 0 {base}px 0; list-style: none; }}
-li::before {{ content: ""; display: inline-block; width: 18px;
-  border-top: 1px solid {c['accent']}; vertical-align: middle;
+
+/* supporting text: small, one size, placed low or in the right column.
+   Ample white space between it and the headline. */
+p, ul, ol, .source, .caption, footer {{
+  font-size: {s['caption']}px; line-height: {base}px;
+  color: {c['ink']}; margin: 0;
+}}
+.source, .caption, footer {{ color: {c['muted']}; }}
+li {{ list-style: none; margin: 0 0 {round(base / 2)}px 0; }}
+li::before {{ content: ""; display: inline-block; width: 16px;
+  border-top: 2px solid {c['accent']}; vertical-align: middle;
   margin-right: 12px; }}
 
-.source, .caption, footer {{
-  font-size: {s['caption']}px; color: {c['muted']}; line-height: {base}px;
+/* the headline band carries a single short accent rule, not a full border */
+h2 + .rule, .headline-rule {{
+  display: block; width: 64px; border-top: 2px solid {c['accent']};
+  margin-top: {round(base / 2)}px;
 }}
 
-/* section divider: knockout on the ink ground, oversized numeral */
+/* section divider: knockout on the ink ground, oversized accent numeral */
 section.title, section.section, section.close {{
   background: {c['ink']}; color: {c['ground']};
 }}
 section.section .numeral {{
-  font-size: {round(s['title'] * 6)}px; line-height: 1;
-  color: rgba({ar},{ag},{ab},.55); position: absolute; right: 0; bottom: -6%;
+  font-size: {round(s['title'] * 5)}px; line-height: 1;
+  color: {c['accent']}; position: absolute; right: 0; bottom: -8%;
   font-weight: 300;
 }}
 
-/* the one accent chip: a solid rectangle, ground-colour text knocked out */
-.chip {{ background: {c['accent']}; color: {c['ground']};
-  padding: 0 .22em; box-decoration-break: clone; }}
-
-/* wide / narrow content split (18-field scheme) */
+/* right-column supporting text (18-field wide/narrow scheme) */
 section.wide-narrow .wide {{ width: {r['wide']['w']}px; float: left; }}
 section.wide-narrow .narrow {{ width: {r['narrow']['w']}px; float: right;
-  border-left: 1px solid {c['accent']}; padding-left: 16px; }}
+  border-left: 2px solid {c['accent']}; padding-left: 16px; }}
+
+/* bottom-anchored supporting text */
+section.headline-bottom .body {{
+  position: absolute; left: {m['left']}px; right: {m['right']}px;
+  bottom: {m['bottom']}px;
+}}
 
 /* field grid: boundaries as accent hairlines, crosses at the corners */
 section.field-grid .cells, section.grid-overlay {{
@@ -261,7 +284,7 @@ def main(argv):
     ap.add_argument("--target-chars", type=int, default=32,
                     help="target characters per body line (32 slide, 20 caption)")
     ap.add_argument("--accent", default=DEFAULT_COLOURS["accent"],
-                    help="accent hex; marks the grid only (default transformative teal)")
+                    help="accent hex; marks the grid only (default pure red)")
     ap.add_argument("--from", dest="from_file", default=None,
                     help="json with {faces, colours, leading_factor, advance}")
     ap.add_argument("--name", default="walk-on-a-slide-side", help="Marp theme name")
