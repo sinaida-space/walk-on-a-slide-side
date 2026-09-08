@@ -101,18 +101,23 @@ a re-render. Changing it now costs nothing.
 
 ## Stage 3. Design system
 
-Read `references/stage-3-design-system.md` and `references/muller-brockmann.md`.
+Read `references/design-system.md`, `references/stage-3-design-system.md`
+and `references/muller-brockmann.md`.
+
+The skill ships a **built-in design system** (`design-system.md`): the
+full-height left bar, the oversized ghost number, the five layouts, one
+small text size, ample white, the accent as a grid mark only. That is the
+structure.
 
 First question, always: **is there a design system to work inside?**
 
 - **The user supplies one.** A tokens file, a brand spec, or an existing
-  deck to match. Ingest its type faces, its colours and its spacing unit.
-  Do not add a second accent or a second body face.
-- **There is none, or the deck is for a public or client audience.**
-  Construct one from `references/muller-brockmann.md`: type area from the
-  canvas and margin proportions, columns from type size, baseline from
-  leading, fields from content density. The default accent is
-  pure red `#FF0000`, used only to mark the grid.
+  deck to match. Ingest its type faces, its accent, its greys, its
+  ground and ink, its spacing unit. Those materials **layer over** the
+  built-in structure. Do not add a second accent or a second body face.
+  If the user's system contradicts a structural rule, stop and ask which
+  wins.
+- **There is none.** Use the built-in defaults (`design-system.md`).
 
 Either way the grid, the type scale and the spacing are derived by
 Müller-Brockmann’s maths. The eye does not choose them. That book is the
@@ -153,17 +158,19 @@ send it to the user. Never hand over a deck you have not looked at.
 
 ```
 references/
+  design-system.md           the built-in design system and how a user system layers over it
   muller-brockmann.md        the construction method and every number it yields
   stage-1-content.md         cleaning, sourcing, framework routing
-  stage-2-structure.md       the spine: one idea per slide, assertion headlines
+  stage-2-structure.md       the spine: one idea per slide, assertion headlines; audience patterns
   stage-3-design-system.md   ingest or construct, then Müller-Brockmann maths
-  stage-4-build.md           Marp / Typst / PPTX render and verification
+  stage-4-build.md           Marp / Typst / PPTX render, verification, consistency audit
   frameworks/
     mckinsey-7-step.md       define, structure, prioritise, plan, analyse, synthesise, recommend
     project-intro.md         12-point project / product introduction
     scqa-talk.md             situation · complication · question · answer
 scripts/
   grid.py                    Müller-Brockmann grid calculator -> tokens.json + theme.css
+EXAMPLE-SLIDE-DECK.pdf        the built-in system, rendered: a project introduction
 ```
 
 ## Never
