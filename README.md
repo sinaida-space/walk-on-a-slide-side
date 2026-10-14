@@ -7,8 +7,6 @@ The ultimate slide-deck maker, as a Claude&nbsp;Code skill. It builds a deck
 in four stages, in order: clean the content, structure the argument,
 construct a Müller-Brockmann design system, render the slides.
 
-> Production mirror. Development and issue tracking run in a private development environment; releases are published here.
-
 ## Why this exists
 
 Most decks are built back to front. Someone opens a template, picks a
@@ -173,3 +171,6 @@ the method at source. See [`NOTICE`](NOTICE).
 
 <img width="3072" height="384" alt="image" src="https://github.com/user-attachments/assets/edadb9be-0def-4b24-aa6b-8777dbc1b3ca" />
 
+This repo is a production mirror.
+
+Development and issue tracking run in a private development environment; releases are published here.
