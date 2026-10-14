@@ -7,6 +7,8 @@ The ultimate slide-deck maker, as a Claude&nbsp;Code skill. It builds a deck
 in four stages, in order: clean the content, structure the argument,
 construct a Müller-Brockmann design system, render the slides.
 
+> Production mirror. Development and issue tracking run in a private development environment; releases are published here.
+
 ## Why this exists
 
 Most decks are built back to front. Someone opens a template, picks a
