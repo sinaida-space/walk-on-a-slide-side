@@ -173,4 +173,4 @@ the method at source. See [`NOTICE`](NOTICE).
 
 This repo is a production mirror.
 
-Development and issue tracking run in a private development environment; releases are published here.
+I develop in a private repo and publish releases here. Issues and ideas are welcome: I read them and carry them over. Pull requests stay open as suggestions; I carry good changes over by hand and then close the PR.
