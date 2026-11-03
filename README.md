@@ -9,50 +9,39 @@ construct a Müller-Brockmann design system, render the slides.
 
 ## Why this exists
 
-Most decks are built back to front. Someone opens a template, picks a
-theme, and starts typing headings like “Overview” and “Next Steps” onto
+Most decks are built back to front. Someone opens a template, picks a&nbsp;theme, and starts typing headings like “Overview” and “Next Steps” onto
 slides that each carry three half-thoughts. The design is chosen before
-anyone has decided what the deck argues, so the design cannot help. The
-result reads like filler, and the room stops listening on slide&nbsp;four.
+anyone has decided what the deck argues, so the design cannot&nbsp;help. The&nbsp;result reads like filler, and the room stops listening on slide&nbsp;four.
 
-This skill refuses that order. It will not touch layout until the
-argument exists and the spine is approved. Then it builds the grid the
-way Josef Müller-Brockmann builds a grid: the type area from the canvas
-and its margins, the columns from the type size, the baseline from the
-leading, the field count from how much the deck has to hold. Nothing is
-chosen by eye. The book is the design bible, and if a number cannot be
-derived from it, it does not go in.
+This skill refuses that order. It will not touch layout until the&nbsp;argument exists and the spine is approved. Then it builds the grid the&nbsp;way Josef Müller-Brockmann builds a grid: the type area from the canvas
+and its margins, the columns from the type size, the baseline from the&nbsp;leading, the field count from how much the deck has to hold. Nothing is&nbsp;chosen by eye. The book is the design bible, and if a number cannot be&nbsp;derived
+from it, it does not go in.
 
-What you get is a deck that reads as one object, page to page, where the
-headlines alone carry the argument and every slide holds exactly one
+What you get is a deck that reads as one object, page to page, where&nbsp;the&nbsp;headlines alone carry the argument and every slide holds exactly one
 idea.
 
 ## What it gives you
 
 - **`content.md`.** Your raw material cleaned into a sourced argument,
-  shaped by the framework that fits what the deck is for.
+  shaped by the framework that fits what the deck
+  is for.
 - **`spine.md`.** One row per slide: an assertion headline that states
-  the point, the single idea it carries, the evidence, its place in the
-  arc.
+  the point, the single idea it carries, the evidence, its place in the&nbsp;arc.
 - **`system/tokens.json` and `system/theme.css`.** A design system
   derived by Müller-Brockmann’s maths: margins, type area, columns,
   gutter, baseline unit, field arrangement, type scale, colour roles,
   and a Marp theme bound to all of it.
-- **`deck.html` / `deck.pdf` / `deck.pptx`.** The rendered deck, in the
-  format you ask for, checked slide by slide before it reaches you.
+- **`deck.html` / `deck.pdf` / `deck.pptx`.** The rendered deck, in the&nbsp;format you ask for, checked slide by slide before it reaches you.
 
 ## The look
 
-The skill ships a built-in design system: a full-height red rule down the
-left edge, huge display type against one small text size, oversized ghost
-numbers, section dividers with a numeral bleeding off the corner, and
-generous white space. It reads like an art-museum booklet.
+The skill ships a built-in design system: a full-height red rule down the&nbsp;left edge, huge display type against one small text size, oversized ghost
+numbers, section dividers with a numeral bleeding off the corner, and&nbsp;generous white space. It reads like an art-museum booklet.
 [`references/design-system.md`](references/design-system.md) is the full
 spec, and [`EXAMPLE-SLIDE-DECK.pdf`](EXAMPLE-SLIDE-DECK.pdf) is that
 system rendered as a project introduction.
 
-When you bring your own design system, its faces, accent, greys and
-spacing unit layer over that structure.
+When you bring your own design system, its faces, accent, greys and&nbsp;spacing unit layer over that structure.
 
 ## How to use it
 
@@ -76,13 +65,11 @@ announces the four stages and runs them in order.
 ### Stage 1: Content
 
 It checks first that you can state what the deck argues and what you want
-the audience to do. If you can only name a topic, it sends you to
-[`for-tee-too`](https://github.com/sinaida-space/for-tee-too)
-to scope the problem, audience and goal, and you come back with those
+the audience to do. If you can only name a topic, it sends you to&nbsp;[`for-tee-too`](https://github.com/sinaida-space/for-tee-too)&nbsp;to scope the problem, audience and goal, and you come back with those
 notes. Then it cleans the raw material: every claim tagged with its
 source, everything that is not load-bearing cut, the numbers that will
-become charts flagged with the one comparison each exists to show. It
-picks a narrative framework from what the deck is for:
+become charts flagged with the one comparison each exists to show. It&nbsp;picks a narrative framework from what the deck
+is for:
 
 | The deck is for… | Framework |
 |---|---|
@@ -90,19 +77,15 @@ picks a narrative framework from what the deck is for:
 | introducing a project or product for buy-in | Project / product intro, 12-point |
 | a talk, lecture or pitch that is not a business case | SCQA narrative |
 
-The project-intro framework is Sinaida’s own, built from running IT and
-process projects at General&nbsp;Electric and from the years of cultural
-projects that followed. Its rule: avoid the “just an idea” stage. The
-world has enough ideas and lacks the resources to make them work.
+The project-intro framework is Sinaida’s own, built from running IT and&nbsp;process projects at General&nbsp;Electric and from the years of cultural
+projects that followed. Its rule: avoid the “just an idea” stage. The&nbsp;world has enough ideas and lacks the resources to make them work.
 
 ### Stage 2: Structure
 
-The argument becomes a spine. One idea per slide. Assertion headlines: a
-title is a full sentence that states the takeaway (“Revenue grew in every
+The argument becomes a spine. One idea per slide. Assertion headlines: a&nbsp;title is a full sentence that states the takeaway (“Revenue grew in every
 region”), never a label (“Q3 Revenue”). Read the headlines top to bottom
 and they form the argument by themselves. Data slides state their
-takeaway in the chart title. There is one call-to-action slide and it is
-last; “Thank you” is not a slide. You approve the spine before any design
+takeaway in the chart title. There is one call-to-action slide and it is&nbsp;last; “Thank you” is not a slide. You approve the spine before any design
 work, because changing it later means re-rendering and changing it now
 costs nothing.
 
@@ -116,8 +99,7 @@ It asks whether you already have a design system.
 - **If you do not** (anything shared publicly, or client work that needs
   its own identity), it constructs one from
   [`references/muller-brockmann.md`](references/muller-brockmann.md). The
-  default accent is pure red `#FF0000`, used only to mark the
-  grid.
+  default accent is pure red `#FF0000`, used only to mark the&nbsp;grid.
 
 Either way the grid, the type scale and the spacing come from the maths,
 not from taste. `grid.py` does the derivation:
@@ -138,8 +120,7 @@ It asks which format you want, and you can pick more than one:
 
 It assembles `deck.md` from the spine, renders, then reads every slide:
 headlines that argue the thesis, nothing overflowing the type area, one
-idea per slide, data slides carrying their takeaway, the ask last, the
-grid holding. It sends you a screenshot of the built deck. It never hands
+idea per slide, data slides carrying their takeaway, the ask last, the&nbsp;grid holding. It sends you a screenshot of the built deck. It never hands
 over a deck it has not looked at.
 
 ## Typography
@@ -155,8 +136,7 @@ python3 ~/.claude/skills/typography/scripts/typocheck.py deck.md
 
 ## Author
 
-Sinaida Krivchenko is a new media artist based in Prague, working in
-interactive projection, GLSL shaders, generative art and web
+Sinaida Krivchenko is a new media artist based in Prague, working in&nbsp;interactive projection, GLSL shaders, generative art and web
 applications. Background in biomedical engineering and IT project
 management, including General&nbsp;Electric’s IT Leadership Program.
 
@@ -164,9 +144,7 @@ management, including General&nbsp;Electric’s IT Leadership Program.
 
 ## License
 
-Source code under the Apache License&nbsp;2.0 ([`LICENSE`](LICENSE)). The
-banner imagery is separate ([`LICENSE-ARTWORK`](LICENSE-ARTWORK)). The
-Müller-Brockmann book is referenced, not reproduced; obtain it to read
+Source code under the Apache License&nbsp;2.0 ([`LICENSE`](LICENSE)). The&nbsp;banner imagery is separate ([`LICENSE-ARTWORK`](LICENSE-ARTWORK)). The&nbsp;Müller-Brockmann book is&nbsp;referenced, not reproduced; obtain it to read
 the method at source. See [`NOTICE`](NOTICE).
 
 <img width="3072" height="384" alt="image" src="https://github.com/user-attachments/assets/edadb9be-0def-4b24-aa6b-8777dbc1b3ca" />
