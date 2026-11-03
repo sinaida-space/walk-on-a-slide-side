@@ -91,8 +91,8 @@ picks a narrative framework from what the deck is for:
 | a talk, lecture or pitch that is not a business case | SCQA narrative |
 
 The project-intro framework is Sinaida’s own, built from running IT and
-process projects at General&nbsp;Electric and from the years in creative
-direction that followed. Its rule: avoid the “just an idea” stage. The
+process projects at General&nbsp;Electric and from the years of cultural
+projects that followed. Its rule: avoid the “just an idea” stage. The
 world has enough ideas and lacks the resources to make them work.
 
 ### Stage 2: Structure
